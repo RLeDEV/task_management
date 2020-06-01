@@ -19,7 +19,7 @@ export default class Navbar extends Component {
                                     <li className="nav-item"><i className="fas fa-plus-square"></i>Create</li>
                                 </ul>
                                 <ul className="nav-manage">
-                                    <li className="user-name"><div><i className="fas fa-question-circle"></i></div></li>
+                                    <li className="user-name"><div><i className="fas fa-user-circle"></i></div></li>
                                 </ul>
                             </div>
                         </div>
