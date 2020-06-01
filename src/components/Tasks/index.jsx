@@ -1,6 +1,66 @@
 import React, { Component } from 'react';
 import './index.css';
 
+let testTasks = [
+    {
+        title: 'test1',
+        description: 'This is a test',
+        createDate: '01/06/2020',
+        estimatedDate: '03/06/2020',
+        status: 'pending'
+    },
+    {
+        title: 'test2',
+        description: 'This is the second test',
+        createDate: '01/06/2020',
+        estimatedDate: '04/06/2020',
+        status: 'pending'
+    },
+    {
+        title: 'test2',
+        description: 'This is the second test',
+        createDate: '01/06/2020',
+        estimatedDate: '04/06/2020',
+        status: 'pending'
+    },
+    {
+        title: 'test2',
+        description: 'This is the second test',
+        createDate: '01/06/2020',
+        estimatedDate: '04/06/2020',
+        status: 'pending'
+    },
+    {
+        title: 'test2',
+        description: 'This is the second test',
+        createDate: '01/06/2020',
+        estimatedDate: '04/06/2020',
+        status: 'pending'
+    },
+    {
+        title: 'test2',
+        description: 'This is the second test',
+        createDate: '01/06/2020',
+        estimatedDate: '04/06/2020',
+        status: 'pending'
+    },
+    {
+        title: 'test2',
+        description: 'This is the second test',
+        createDate: '01/06/2020',
+        estimatedDate: '04/06/2020',
+        status: 'pending'
+    }
+]
+
+export class AllTasks extends Component {
+    render() {
+        return (
+            testTasks.map((item,i) => <Task info={item} id={i+1} />)
+        )
+    }
+}
+
 class Task extends Component {
     constructor(props) {
         super(props);
@@ -9,16 +69,26 @@ class Task extends Component {
             description: null,
             createDate: null,
             estimatedDate: null,
-            status: 'Pending..'    
+            status: 'pending'    
         }
     }
 
+    componentDidMount() {
+        this.setState({
+            title: this.props.info.title,
+            description: this.props.info.description,
+            createDate: this.props.info.createDate,
+            estimatedDate: this.props.info.estimatedDate,
+            status: this.props.info.status
+        })
+    }
     render() {
+        console.log(this.props)
         return (
             <div className="content">
                 <div className="task">
                     <div className="task-id">
-                        <div className="id">1123</div>
+                        <div className="id">{this.props.id}</div>
                     </div>
                     <div className="task-info">
                         <div className="task-title">
@@ -37,13 +107,17 @@ class Task extends Component {
                             <div className="header">Estimated Date:</div>
                             {this.state.estimatedDate == null ? '99-99-9999' : this.state.estimatedDate}
                         </div>
-                        <div className="task-desc">
-                            <div className="header">Status:</div>
-                            {this.state.status == null ? 'NULL' : this.state.status}
-                        </div>
                     </div>
                     <div className="task-details-extend">
                         <i className="fas fa-plus"></i>
+                        <div className="status-dropdown">
+                            <div className="status-btn">{this.state.status}</div>
+                            <div className="dropdown-content">
+                                <span className="dropdown-choose">Pending</span>
+                                <span className="dropdown-choose">On board</span>
+                                <span className="dropdown-choose">Done</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
