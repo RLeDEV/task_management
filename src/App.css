@@ -9,5 +9,9 @@
 
 .content {
   max-width: 900px;
+  margin: 3px auto;
+}
+
+.tasks-view {
   margin: 65px auto;
 }

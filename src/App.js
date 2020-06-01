@@ -3,13 +3,16 @@ import Sidebar from './components/Navbar';
 import Tasks from './components/Tasks';
 import {BrowserRouter} from 'react-router-dom';
 import './App.css';
+import { AllTasks } from './components/Tasks';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Sidebar />
-        <Tasks />
+        <div className="tasks-view">
+          <AllTasks />
+        </div>
       </BrowserRouter>
     </div>
   );
