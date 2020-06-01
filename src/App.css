@@ -9,7 +9,9 @@
 
 .content {
   /* width: 80%; */
-  margin: 1px auto;
+  position: relative;
+  top: 65px;
+  margin: 0px auto;
 }
 
 .tasks-view {

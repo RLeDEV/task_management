@@ -9,9 +9,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Sidebar />
-        <div className="tasks-view">
+        {/* <div className="tasks-view">
           <AllTasks />
-        </div>
+        </div> */}
       </BrowserRouter>
     </div>
   );
