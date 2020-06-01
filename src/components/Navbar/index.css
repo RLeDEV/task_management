@@ -1,0 +1,97 @@
+.navbar {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar li {
+    list-style: none;
+    margin: 20px;
+    font-size: 14px;
+}
+
+.wrapper .top-navbar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    position: fixed;
+    top: 0px;
+}
+
+.wrapper .top-navbar .top-menu {
+    width: 100%;
+    background: rgb(2, 119, 90);
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 0 5px; */
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.wrapper .top-navbar .top-menu .logo {
+    /* flex: 3; */
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 20px;
+    font-weight: 700;  
+    margin-left: 35px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+}
+
+.wrapper .top-navbar .top-menu ul {
+    /* flex: 3; */
+    display: flex;
+    margin-right: 10px;
+}
+
+.wrapper .top-navbar .top-menu .nav-item {
+    color: #e0e0e0;
+    padding: 5px;
+    border-radius: 5px;
+    transition: all 0.5s;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.wrapper .top-navbar .top-menu .nav-item i {
+    margin-right: 6px;
+}
+
+.wrapper .top-navbar .top-menu .nav-item:hover {
+    background-color: rgb(208, 255, 235);
+    color: rgb(19, 95, 60);
+    box-shadow: 0px 1px 10px 3px rgba(243, 243, 243, 0.2);
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.wrapper .top-navbar .top-menu .user-name {
+    padding: 5px;
+    color: white;
+    display: inline;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.wrapper .top-navbar .top-menu .user-name {
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.wrapper .top-navbar .top-menu .user-name i {
+    font-size: 30px;
+}
+
+.wrapper .top-navbar .top-menu .user-name:hover {
+    background: rgba(27, 71, 35, 0.349);
+    cursor: pointer;
+    transition: all 0.5s;
+}
