@@ -1,6 +1,5 @@
 import React from 'react';
 import Sidebar from './components/Navbar';
-import Tasks from './components/Tasks';
 import {BrowserRouter} from 'react-router-dom';
 import './App.css';
 import { AllTasks } from './components/Tasks';
