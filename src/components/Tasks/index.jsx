@@ -71,8 +71,10 @@ class Task extends Component {
             description: null,
             createDate: null,
             estimatedDate: null,
-            status: 'pending'    
+            status: 'pending',
+            extended: false    
         }
+        this.toggleVisible = this.toggleVisible.bind(this);
     }
 
     componentDidMount() {
@@ -84,6 +86,12 @@ class Task extends Component {
             status: this.props.info.status
         })
     }
+
+    toggleVisible() {
+        const currentState = this.state.extended;
+        this.setState({extended: !currentState});    
+    }
+
     render() {
         console.log(this.props)
         return (
@@ -97,27 +105,29 @@ class Task extends Component {
                             <div className="header">Task Title:</div>
                             {this.state.title == null ? 'NULL' : this.state.title}
                         </div>
-                        <div className="task-desc">
-                            <div className="header">Description:</div>
-                            {this.state.description == null ? 'NULL' : this.state.description}
-                        </div>
-                        <div className="task-desc">
-                            <div className="header">Created Date:</div>
-                            {this.state.createDate == null ? '99-99-9999' : this.state.createDate}
-                        </div>
-                        <div className="task-desc">
-                            <div className="header">Estimated Date:</div>
-                            {this.state.estimatedDate == null ? '99-99-9999' : this.state.estimatedDate}
+                        <div className={`${this.state.extended === false ? 'extended-info-none' : 'extended-info'}`}>
+                            <div className="task-desc">
+                                <div className="header">Description:</div>
+                                {this.state.description == null ? 'NULL' : this.state.description}
+                            </div>
+                            <div className="task-desc">
+                                <div className="header">Created Date:</div>
+                                {this.state.createDate == null ? '99-99-9999' : this.state.createDate}
+                            </div>
+                            <div className="task-desc">
+                                <div className="header">Estimated Date:</div>
+                                {this.state.estimatedDate == null ? '99-99-9999' : this.state.estimatedDate}
+                            </div>
                         </div>
                     </div>
                     <div className="task-details-extend">
-                        <i className="fas fa-plus"></i>
+                        <i className="fas fa-plus" onClick={this.toggleVisible} title="Extend"></i>
                         <div className="status-dropdown">
                             <div className={`status-btn ${this.state.status === 'done' ? 'done' : this.state.status === 'pending' ? 'pending' : 'in-progress'}`}>{this.state.status}</div>
                             <div className="dropdown-content">
-                                <span className="dropdown-choose">Pending</span>
-                                <span className="dropdown-choose">On board</span>
-                                <span className="dropdown-choose">Done</span>
+                                <span className="dropdown-choose" onClick={() => this.setState({status: 'pending'})}>Pending</span>
+                                <span className="dropdown-choose" onClick={() => this.setState({status: 'in-progress'})}>In Progress</span>
+                                <span className="dropdown-choose" onClick={() => this.setState({status: 'done'})}>Done</span>
                             </div>
                         </div>
                     </div>

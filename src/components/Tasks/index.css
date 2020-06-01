@@ -11,7 +11,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    /* width: 80%; */
+    min-height: 80px;
     padding-bottom: 3px;
     background-color: rgba(248, 248, 248, 0.493);
     border-bottom: 2px solid rgb(101, 156, 140);
@@ -25,7 +25,7 @@
 
 .task-info {
     margin-left: 30px;
-    font-size: 12.5px;
+    font-size: 14px;
 }
 
 .task-info .header {
@@ -53,6 +53,19 @@
     background-color: rgb(33, 104, 80);
     color: white;
     transition: all 0.5s;
+}
+
+.task .task-info .extended-info-none {
+    display: none;
+    transition: all 0.5s;
+}
+
+.task .task-info .extended-info {
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
 }
 
 .task .task-details-extend {
@@ -144,3 +157,29 @@
 .task .task-details-extend .status-dropdown .pending {
     background-color: #a5e412;
 }
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+    
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+    
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+    
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+    
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
