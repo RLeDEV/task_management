@@ -1,5 +1,6 @@
 import React from 'react';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/Navbar';
+import Tasks from './components/Tasks';
 import {BrowserRouter} from 'react-router-dom';
 import './App.css';
 
@@ -8,6 +9,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Sidebar />
+        <Tasks />
       </BrowserRouter>
     </div>
   );
