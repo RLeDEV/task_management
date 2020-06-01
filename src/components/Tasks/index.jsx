@@ -21,14 +21,14 @@ let testTasks = [
         description: 'This is test 3',
         createDate: '01/06/2020',
         estimatedDate: '04/06/2020',
-        status: 'On board'
+        status: 'in progress'
     },
     {
         title: 'test4',
         description: 'This is the second test',
         createDate: '01/06/2020',
         estimatedDate: '04/06/2020',
-        status: 'Done'
+        status: 'done'
     },
     {
         title: 'test2',
@@ -113,7 +113,7 @@ class Task extends Component {
                     <div className="task-details-extend">
                         <i className="fas fa-plus"></i>
                         <div className="status-dropdown">
-                            <div className="status-btn">{this.state.status}</div>
+                            <div className={`status-btn ${this.state.status === 'done' ? 'done' : this.state.status === 'pending' ? 'pending' : 'in-progress'}`}>{this.state.status}</div>
                             <div className="dropdown-content">
                                 <span className="dropdown-choose">Pending</span>
                                 <span className="dropdown-choose">On board</span>
