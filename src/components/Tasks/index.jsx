@@ -17,18 +17,18 @@ let testTasks = [
         status: 'pending'
     },
     {
-        title: 'test2',
-        description: 'This is the second test',
+        title: 'test3',
+        description: 'This is test 3',
         createDate: '01/06/2020',
         estimatedDate: '04/06/2020',
-        status: 'pending'
+        status: 'On board'
     },
     {
-        title: 'test2',
+        title: 'test4',
         description: 'This is the second test',
         createDate: '01/06/2020',
         estimatedDate: '04/06/2020',
-        status: 'pending'
+        status: 'Done'
     },
     {
         title: 'test2',
@@ -56,7 +56,9 @@ let testTasks = [
 export class AllTasks extends Component {
     render() {
         return (
-            testTasks.map((item,i) => <Task info={item} id={i+1} />)
+            <div className="tasks-display">
+                {testTasks.map((item,i) => <Task info={item} id={i+1} />)}
+            </div>
         )
     }
 }

@@ -1,3 +1,12 @@
+.tasks-display {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.tasks-display:first-child {
+    border-top: 2px solid rgb(101, 156, 140);
+}
+
 .task {
     display: flex;
     justify-content: flex-start;
@@ -6,7 +15,6 @@
     padding-bottom: 3px;
     background-color: rgba(248, 248, 248, 0.493);
     border-bottom: 2px solid rgb(101, 156, 140);
-    border-top: 2px solid rgb(101, 156, 140);
 }
 
 .task-info {
@@ -22,7 +30,6 @@
 
 .task .task-id {
     width: 50px;
-    position: relative;
     display: inline-block;
     text-align: center;
     margin-left: 15px;
@@ -43,7 +50,6 @@
 }
 
 .task .task-details-extend {
-    position: relative;
     display: inline;
     border: none;
     margin: 0 15px 0 auto;
@@ -105,7 +111,6 @@
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 500;
-    min-width: 100px;
     padding: 2px 8px 2px 8px;
     background-color: rgb(194, 206, 199);
     transition: all 0.5s;
