@@ -1,0 +1,64 @@
+.login-panel {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+}
+
+.login-panel .title {
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.login-panel .wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    justify-content: space-between;
+}
+
+.login-panel .wrapper .username,
+.login-panel .wrapper .password {
+    padding: 5px 0 5px 0;
+    margin: 10px 0 0 0 ;
+    min-width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-panel .wrapper input {
+    border: 1px solid rgb(182, 182, 182);
+    border-radius: 4px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.login-panel .wrapper .login-btn:hover {
+    opacity: 1;
+}
+
+.login-panel .wrapper div span {
+    padding: 5px;
+}
+
+.login-btn .login {
+    text-decoration: none;
+    color: black;
+}
+
+.login-btn {
+    padding: 5px 0 5px 0;
+    margin: 10px 0 0 0;
+    border-radius: 5px;
+    min-width: 250px;
+    text-align: center;
+    background-color: rgb(60, 153, 96);
+    opacity: 0.85;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}

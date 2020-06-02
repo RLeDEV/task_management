@@ -10,9 +10,7 @@
 .content {
   /* width: 80%; */
   position: relative;
-  top: 65px;
   margin: 0px auto;
-  z-index: -999;
 }
 
 .tasks-view {

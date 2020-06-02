@@ -3,8 +3,8 @@
     margin: 0 auto;
 }
 
-.tasks-display:first-child {
-    border-top: 2px solid rgb(101, 156, 140);
+.tasks-display:last-child {
+    margin-bottom: 50px;
 }
 
 .task {
