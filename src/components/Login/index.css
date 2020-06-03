@@ -1,9 +1,12 @@
 .login-panel {
+    background-color: rgba(173, 207, 187, 0.548);
     position: fixed;
+    border-radius: 15px;
     top: 30%;
     left: 50%;
-    margin-top: -50px;
-    margin-left: -100px;
+    padding: 30px;
+    margin-top: -80px;
+    margin-left: -130px;
 }
 
 .login-panel .title {

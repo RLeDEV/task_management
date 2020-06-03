@@ -1,5 +1,6 @@
 :root {
   --off-white: #fafafa;
+  background-image: url('./components/Login/background.jpeg');
   font-family: 'Roboto', sans-serif;
 }
 
