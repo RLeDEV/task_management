@@ -54,10 +54,29 @@ let testTasks = [
 ]
 
 export class AllTasks extends Component {
+    constructor(props){
+        super(props);
+        this.removeItem = this.removeItem.bind(this);
+        this.state = {
+            tasks: testTasks
+        }
+    }
+
+    removeItem(index) {
+        let currTasks = this.state.tasks;
+        currTasks.splice(index, 1);
+        this.setState({tasks: currTasks});
+    }
+
     render() {
+        var tasks = this.state.tasks.map((item, i) => {
+            return (
+                <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} />
+            );
+        });
         return (
             <div className="tasks-display">
-                {testTasks.map((item,i) => <Task info={item} id={i+1} />)}
+                {tasks}
             </div>
         )
     }
@@ -75,6 +94,7 @@ class Task extends Component {
             extended: false    
         }
         this.toggleVisible = this.toggleVisible.bind(this);
+        this.onClickDelete = this.onClickDelete.bind(this);
     }
 
     componentDidMount() {
@@ -92,8 +112,13 @@ class Task extends Component {
         this.setState({extended: !currentState});    
     }
 
+    onClickDelete() {
+        var index = parseInt(this.props.id - 1);
+        this.props.removeItem(index);
+        this.forceUpdate()
+    }
+
     render() {
-        console.log(this.props)
         return (
             <div className="content">
                 <div className="task">
@@ -122,6 +147,7 @@ class Task extends Component {
                     </div>
                     <div className="task-details-extend">
                         <i className="fas fa-plus" onClick={this.toggleVisible} title="Extend"></i>
+                        <i className="fas fa-trash-alt" onClick={this.onClickDelete}></i>
                         <div className="status-dropdown">
                             <div className={`status-btn ${this.state.status === 'done' ? 'done' : this.state.status === 'pending' ? 'pending' : 'in-progress'}`}>{this.state.status}</div>
                             <div className="dropdown-content">
