@@ -47,13 +47,13 @@
 .task .task-id .id {
     background-color: rgb(194, 206, 199);
     border-radius: 15px;
-    transition: all 0.5s;
+    transition: all 1s;
 }
 
-.task .task-id .id:hover {
+.task:hover .task-id .id {
     background-color: rgb(33, 104, 80);
     color: white;
-    transition: all 0.5s;
+    transition: all 1s;
 }
 
 .task .task-info .extended-info-none {
