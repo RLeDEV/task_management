@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 
 // Routers
 const tasks = require('./routers/tasks');
+const signin = require('./routers/signin');
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Router usage
 app.use('/tasks', tasks);
+app.use('/users', signin);
 
 // app.get('/check', function (req, res) {
 //     return res.send('success');
