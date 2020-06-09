@@ -6,13 +6,17 @@ var router = express.Router();
 router.get('/task/:id', async (req, res) => {
     const _id = req.params.id;
     query = `SELECT * FROM task WHERE id = ${_id}`;
-    await connection.query(query, (err , results) => {
-        if(err) {
-            console.log(err);
-            return res.send(JSON.stringify({data: err}));
-        }
-        return res.send(JSON.stringify({data: results}));
-    })
+    try {
+        await connection.query(query, (err , results) => {
+            if(err) {
+                console.log(err);
+                return res.send(JSON.stringify({data: err}));
+            }
+            return res.send(JSON.stringify({data: results}));
+        })
+    } catch (err) {
+        return res.status(401).json({ msg: 'An error occured while tried to fetch task by task id' });
+    }
 })
 
 // Get all tasks by user id
@@ -22,13 +26,18 @@ router.get('/user/:uid', async (req, res) => {
              FROM users as u INNER JOIN havetask as ht on u.id = ht.userId 
              INNER JOIN task as t on t.id = ht.taskId 
              WHERE u.id = ${_uid}`;
-    await connection.query(query, (err , results) => {
-        if(err) {
-            console.log(err);
-            return res.send(JSON.stringify({data: err}));
-        }
-        return res.send(JSON.stringify({data: results}));
-    })
+    try {
+        await connection.query(query, (err , results) => {
+            if(err) {
+                console.log(err);
+                return res.send(JSON.stringify({data: err}));
+            }
+            return res.send(JSON.stringify({data: results}));
+        })
+    }
+    catch(err) {
+        return res.status(401).json({ msg: 'An error occured while tried to fetch task by user id' });
+    }
 })
 
 module.exports = router;
