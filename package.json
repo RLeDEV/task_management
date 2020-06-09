@@ -10,6 +10,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-pino-logger": "^5.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "node-env": "^0.1.6",
     "node-env-run": "^3.0.2",
