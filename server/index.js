@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const auth = require('./middleware/auth');
+const cors = require('cors');
 
 // Routers
 const tasks = require('./routers/tasks');
@@ -11,8 +13,9 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
-// Router usage
+// // Router usage
 app.use('/tasks', tasks);
 app.use('/users', signin);
 
