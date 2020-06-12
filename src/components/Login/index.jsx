@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
 import Main from '../Main';
 import './index.css';
-import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
@@ -14,16 +15,27 @@ class Login extends Component {
         }
     }
 
-    auth = () => {
-        if(this.state.username === 'razlevy' && this.state.password === '220993') {
-            this.setState({loading: true})
-            setTimeout(() => this.setState({loggedIn: true}), 5000)
-        } else {
-            alert('Username or password are incorrect');
+    componentDidMount() {
+        if(this.props.user.token != null) {
+            this.setState({loggedIn: true})
         }
     }
 
+    auth = () => {
+        const username = this.state.username;
+        const password = this.state.password;
+        this.props.loginUser(username, password)
+        console.log(this.props.user.token)
+        this.setState({loading: true})
+        setTimeout(() => {
+            if(this.props.user.token != null) {
+                this.setState({loggedIn: true})
+            }
+        }, 3000)
+    }
+
     render() {
+        console.log(this.props.user.token)
         return (
             <Fragment>
                 {this.state.loggedIn ? <Main /> :
@@ -51,4 +63,8 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return { user: state.auth }
+}
+
+export default connect(mapStateToProps, { loginUser })(Login);
