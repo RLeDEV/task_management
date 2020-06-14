@@ -10,6 +10,7 @@ dotenv.config();
 var router = express.Router();
 
 // Sign-in
+// I still need to re-use the hashedPwd variable --> TODO
 router.post('/login', async (req, res) => {
     const email = req.body.email;
     const pwd = req.body.password;
@@ -24,15 +25,20 @@ router.post('/login', async (req, res) => {
             }
             const token = jwt.sign({ id: email}, process.env.JWT_TOKEN, {'expiresIn': '2 days' });
             updateToken(token,email)
-            return res.status(200).json({
-                token,
-                user: {
-                    results
-                }
-            });
+            if(results.length > 0){
+                // In case it's a valid username & password
+                return res.status(200).json({
+                    token,
+                    user: {
+                        results
+                    }
+                });
+            }
+            // Incase of invalid username & password
+            return res.status(401).json({ msg: 'An error occured while tried to logged in user' });
         })
     } catch (err) {
-        return res.status(401).json({ msg: 'An error occured while tried to logged in user' });
+        console.log({ msg: 'An error occured while tried to logged in user' });
     }
 })
 
