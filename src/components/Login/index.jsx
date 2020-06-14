@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import Main from '../Main';
+import Alert from '../Utils/Alert';
 import './index.css';
 
 class Login extends Component {
@@ -11,7 +12,8 @@ class Login extends Component {
             loggedIn: false,
             username: null,
             password: null,
-            loading: false
+            loading: false,
+            failed: false
         }
     }
 
@@ -30,6 +32,12 @@ class Login extends Component {
         setTimeout(() => {
             if(this.props.user.token != null) {
                 this.setState({loggedIn: true})
+            }
+            else {
+                this.setState({loading: false, failed: true})
+                setTimeout(() => {
+                    this.setState({failed: false})
+                }, 3000)
             }
         }, 3000)
     }
@@ -55,6 +63,7 @@ class Login extends Component {
                     <div className="login-btn" onClick={() => this.auth()}>
                             {this.state.loading ? <div>Loading..  <i className="fas fa-sync fa-spin"></i></div> : 'Login' }
                     </div>
+                    {this.state.failed ? <Alert type="error" error="Username or Password are incorrect" /> : null }
                 </div>
             </div>
             }
