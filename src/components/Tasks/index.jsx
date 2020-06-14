@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './index.css';
 
 let testTasks = [
@@ -163,4 +164,8 @@ class Task extends Component {
     }
 }
 
-export default Task
+const mapStateToProps = state => {
+    return { user: state.auth }
+}
+
+export default connect(mapStateToProps)(Task);

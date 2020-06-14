@@ -25,7 +25,7 @@ class Login extends Component {
         const username = this.state.username;
         const password = this.state.password;
         this.props.loginUser(username, password)
-        console.log(this.props.user.token)
+        // console.log(this.props.user.token)
         this.setState({loading: true})
         setTimeout(() => {
             if(this.props.user.token != null) {
@@ -35,7 +35,7 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.props.user.token)
+        // console.log(this.props.user.token)
         return (
             <Fragment>
                 {this.state.loggedIn ? <Main /> :
