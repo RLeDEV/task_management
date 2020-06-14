@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
-import { AllTasks } from '../Tasks';
+import AllTasks from '../Tasks';
 import './index.css';
 
 class Navbar extends Component {
@@ -12,12 +12,12 @@ class Navbar extends Component {
         this.logOut = this.logOut.bind(this);
     }
 
-    componentDidUpdate(prevProps) {
-        // Getting the email of the user
-        if (prevProps.user.user !== this.props.user.user) {
-          console.log(this.props.user.user.user[0].email)
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     // Getting the email of the user
+    //     if (prevProps.user.user !== this.props.user.user) {
+    //       console.log(this.props.user.user.user[0].email)
+    //     }
+    // }
 
     logOut() {
         this.props.logoutUser();
