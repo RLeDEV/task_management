@@ -22,8 +22,8 @@ class Navbar extends Component {
 
     logOut() {
         this.props.logoutUser();
-        this.props.history.push('/');
-        window.location.href = '/'
+        this.props.history.push('/login');
+        window.location.href = '/login'
     }
     render() {
         return (
@@ -66,7 +66,7 @@ class Navbar extends Component {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    {/* <div> */}
                         {/* <Route
                         exact path="/"
                         render={props => <Dashboard />}
@@ -79,7 +79,7 @@ class Navbar extends Component {
                         exact path="/create"
                         render={props => <Create />}
                         /> */}
-                    </div>
+                    {/* </div> */}
                 </React.Fragment>
             </div>
         )
@@ -90,4 +90,4 @@ const mapStateToProps = state => {
     return { user: state.auth }
 }
 
-export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));
+export default withRouter(connect(mapStateToProps, { logoutUser })(Navbar));
