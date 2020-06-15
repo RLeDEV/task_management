@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Task from './Task';
-import axios from 'axios';
 import './index.css';
 
 let testTasks = [

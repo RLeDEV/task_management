@@ -18,8 +18,8 @@ class App extends React.Component {
         <div className="App">
           <BrowserRouter>
           <Switch>
-              <Route exact path='/' component={Login} />
-              <ProtectedRoute exact path='/app' component={Main}/>
+              <Route exact path='/login' component={Login} />
+              <ProtectedRoute exact path='/' component={Main}/>
             </Switch>
           </BrowserRouter>
         </div>
