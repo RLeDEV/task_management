@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
+import { withRouter } from 'react-router';
 import AllTasks from '../Tasks';
 import './index.css';
 
@@ -21,6 +22,7 @@ class Navbar extends Component {
 
     logOut() {
         this.props.logoutUser();
+        this.props.history.push('/');
         window.location.href = '/'
     }
     render() {
@@ -88,4 +90,4 @@ const mapStateToProps = state => {
     return { user: state.auth }
 }
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser })(withRouter(Navbar));

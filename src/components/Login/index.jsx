@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
-import Main from '../Main';
+import {Redirect} from 'react-router-dom';
 import Alert from '../Utils/Alert';
 import './index.css';
 
@@ -13,7 +13,8 @@ class Login extends Component {
             username: null,
             password: null,
             loading: false,
-            failed: false
+            failed: false,
+            errMsg: ''
         }
     }
 
@@ -26,15 +27,19 @@ class Login extends Component {
     auth = () => {
         const username = this.state.username;
         const password = this.state.password;
+        
+        // Changing the state in redux store
         this.props.loginUser(username, password)
-        // console.log(this.props.user.token)
+        // Pushing to /app with protected route
         this.setState({loading: true})
         setTimeout(() => {
             if(this.props.user.token != null) {
                 this.setState({loggedIn: true})
+                this.props.history.push('/app');
             }
+            // Error handling
             else {
-                this.setState({loading: false, failed: true})
+                this.setState({loading: false, failed: true, errMsg: "Incorrect username or password"})
                 setTimeout(() => {
                     this.setState({failed: false})
                 }, 3000)
@@ -43,10 +48,17 @@ class Login extends Component {
     }
 
     render() {
-        // console.log(this.props.user.token)
+        console.log(this.props.user.isAuthenticated)
         return (
             <Fragment>
-                {this.state.loggedIn ? <Main /> :
+                {this.props.user.isAuthenticated ? <Redirect to={
+                    {
+                        pathname: '/app',
+                            state: {
+                                from: this.props.history.location
+                            }
+                    }
+                } /> :
             <div className="login-panel">
                 <div className="title">
                     Task Manager
@@ -63,7 +75,7 @@ class Login extends Component {
                     <div className="login-btn" onClick={() => this.auth()}>
                             {this.state.loading ? <div>Loading..  <i className="fas fa-sync fa-spin"></i></div> : 'Login' }
                     </div>
-                    {this.state.failed ? <Alert type="error" error="Username or Password are incorrect" /> : null }
+                    {this.state.failed ? <Alert type="error" error={this.state.errMsg} /> : null }
                 </div>
             </div>
             }
