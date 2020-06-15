@@ -35,7 +35,7 @@ class Login extends Component {
         setTimeout(() => {
             if(this.props.user.token != null) {
                 this.setState({loggedIn: true})
-                this.props.history.push('/app');
+                this.props.history.push('/');
             }
             // Error handling
             else {
@@ -44,16 +44,16 @@ class Login extends Component {
                     this.setState({failed: false})
                 }, 3000)
             }
-        }, 3000)
+        }, 4000)
     }
 
     render() {
-        console.log(this.props.user.isAuthenticated)
+        // console.log(this.props.user.isAuthenticated)
         return (
             <Fragment>
                 {this.props.user.isAuthenticated ? <Redirect to={
                     {
-                        pathname: '/app',
+                        pathname: '/',
                             state: {
                                 from: this.props.history.location
                             }
