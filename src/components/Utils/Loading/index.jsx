@@ -4,7 +4,7 @@ import './index.css';
 export const Loading = () => {
     return (
         <div className="loading-spinner">
-            <div className="loader"></div>
+            <center><div className="loader"></div></center>
             <div className="content">
                 Loading..
             </div>

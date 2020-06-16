@@ -1,7 +1,10 @@
 .loading-spinner {
+  margin: auto;
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
+  padding: 10px;
+  text-align: center;
 }
 
 .loading-spinner .content {
