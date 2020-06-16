@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { withRouter } from 'react-router';
 import AllTasks from '../Tasks';
+import Dashboard from '../Dashboard';
 import './index.css';
 
 class Navbar extends Component {
@@ -67,10 +68,10 @@ class Navbar extends Component {
                         </div>
                     </div>
                     {/* <div> */}
-                        {/* <Route
+                        <Route
                         exact path="/"
                         render={props => <Dashboard />}
-                        /> */}
+                        />
                         <Route
                             path="/tasks"
                             render={props => <AllTasks />}
