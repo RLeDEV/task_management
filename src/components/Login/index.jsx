@@ -1,7 +1,8 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import { Loading } from '../Utils/Loading';
 import Alert from '../Utils/Alert';
 import './index.css';
 
@@ -58,7 +59,9 @@ class Login extends Component {
                                 from: this.props.history.location
                             }
                     }
-                } /> :
+                } /> : this.props.user.isLoading && this.props.user.isAuthenticated === null ?
+                 <Loading />
+                 :
             <div className="login-panel">
                 <div className="title">
                     Task Manager
