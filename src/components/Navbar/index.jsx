@@ -14,7 +14,6 @@ class Navbar extends Component {
     logOut() {
         this.props.logoutUser();
         this.props.history.push('/login');
-        window.location.href = '/login'
     }
     render() {
         return (
@@ -27,22 +26,22 @@ class Navbar extends Component {
                     <div className="wrapper">
                         <div className="top-navbar">
                             <div className="top-menu">
-                                    <Link style={{textDecoration: 'none'}} className="logo" exact to='/'>
+                                    <Link style={{textDecoration: 'none'}} className="logo" to='/'>
                                         <div>Task Manager</div>
                                     </Link>
                                 <ul className="nav-menu">
                                     <li className="nav-item">
-                                        <Link className="link" exact to="/">
+                                        <Link className="link" to="/">
                                             <i className="fas fa-chart-line"></i>Dashboard
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="link" exact to="/tasks">
+                                        <Link className="link" to="/tasks">
                                             <i className="fas fa-tasks"></i>Tasks
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="link" exact to="/create">
+                                        <Link className="link" to="/create">
                                             <i className="fas fa-plus-square"></i>Create
                                         </Link>
                                     </li>
