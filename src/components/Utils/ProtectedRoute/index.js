@@ -1,16 +1,14 @@
 import React from 'react';
 import {Route,Redirect} from 'react-router-dom';
-import { useStore } from 'react-redux';
+
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
-    const store = useStore();
-    const auth = store.getState();
     const token = localStorage.getItem('token');
     console.log(token)
     return (
         <Route
             {...rest}
             render={props => {
-                if(auth.auth.isAuthenticated !== null) {
+                if(token !== null) {
                     return <Component {...props} />;
                 }
                 else {
