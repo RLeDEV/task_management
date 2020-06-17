@@ -8,6 +8,7 @@ import history from './components/Utils/history';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
 import AllTasks from './components/Tasks';
+import ErrPage from './components/Utils/ErrPage';
 import {ProtectedRoute} from './components/Utils/ProtectedRoute';
 import './App.css';
 
@@ -27,8 +28,9 @@ class App extends React.Component {
               <Route exact path='/login' component={Login} />
               <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
               <ProtectedRoute exact path='/tasks' component={AllTasks}/>
+              <Route exact path='/404' component={ErrPage}/>
               {/* Protected Route which redirects all paths to login or dashboard based on user's status */}
-              <ProtectedRoute path='*' component={() => <Redirect to='/dashboard'/>}/>
+              <ProtectedRoute path='*' component={() => <Redirect to='/404'/>}/>
             </Switch>
           </Router>
         </div>
