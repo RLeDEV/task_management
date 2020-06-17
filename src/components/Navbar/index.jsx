@@ -22,7 +22,10 @@ class Navbar extends Component {
     render() {
         return (
             <div className="navbar">
+                {/* Checks if the path is login, if yes it will not display anything */}
                 {this.props.location.pathname==='/login' ? false :
+                
+                // Navbar displaytion
                 <React.Fragment>
                     <div className="wrapper">
                         <div className="top-navbar">

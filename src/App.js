@@ -28,6 +28,7 @@ class App extends React.Component {
               <Route exact path='/login' component={Login} />
               <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
               <ProtectedRoute exact path='/tasks' component={AllTasks}/>
+              {/* Protected Route which redirects all paths to login or dashboard based on user's status */}
               <ProtectedRoute path='*' component={() => <Redirect to='/dashboard'/>}/>
             </Switch>
           </Router>
