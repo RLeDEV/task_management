@@ -68,7 +68,7 @@ class Task extends Component {
                         <i className="fas fa-plus" onClick={this.toggleVisible} title="Extend"></i>
                         <i className="fas fa-trash-alt" onClick={this.onClickDelete}></i>
                         <div className="status-dropdown">
-                            <div className={`status-btn ${this.state.status === 'done' ? 'done' : this.state.status === 'pending' ? 'pending' : 'in-progress'}`}>{this.state.status}</div>
+                            <div className={`status-btn ${this.state.status.toLowerCase()}`}>{this.state.status}</div>
                             <div className="dropdown-content">
                                 <span className="dropdown-choose" onClick={() => this.setState({status: 'pending'})}>Pending</span>
                                 <span className="dropdown-choose" onClick={() => this.setState({status: 'in-progress'})}>In Progress</span>
