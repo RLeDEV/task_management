@@ -1,10 +1,9 @@
 import React from 'react';
 import Login from './components/Login';
 import {Router, Route, Switch, Redirect} from 'react-router-dom';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store/store';
 import { loadUser } from './actions/authActions';
-import Main from './components/Main';
 import history from './components/Utils/history';
 import Dashboard from './components/Dashboard';
 import Navbar from './components/Navbar';
