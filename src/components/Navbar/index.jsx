@@ -12,6 +12,7 @@ class Navbar extends Component {
     }
 
     logOut() {
+        // Loging the user out using redux action & navigating to login page
         this.props.logoutUser();
         this.props.history.push('/login');
     }

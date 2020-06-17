@@ -38,7 +38,7 @@
     color: #e0e0e0;
 }
 
-.wrapper .top-navbar .top-menu .link:hover {
+.wrapper .top-navbar .top-menu .nav-item:hover .link {
     color: rgb(19, 95, 60);
 }
 
