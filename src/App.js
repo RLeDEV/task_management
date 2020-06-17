@@ -1,11 +1,13 @@
 import React from 'react';
 import Login from './components/Login';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import { Provider } from 'react-redux';
+import {Router, Route, Switch, Redirect} from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
 import store from './store/store';
 import { loadUser } from './actions/authActions';
 import Main from './components/Main';
+import history from './components/Utils/history';
 import Dashboard from './components/Dashboard';
+import Navbar from './components/Navbar';
 import AllTasks from './components/Tasks';
 import {ProtectedRoute} from './components/Utils/ProtectedRoute';
 import './App.css';
@@ -14,17 +16,21 @@ class App extends React.Component {
   componentDidMount() {
     store.dispatch(loadUser());
   }
+
   render() {
     return (
       <Provider store={store}>
         <div className="App">
-          <BrowserRouter>
+          <Router history={history}>
+            <Navbar />
           <Switch>
+              <Route exact path='/' render={() => <Redirect to='/dashboard'/>}/>
               <Route exact path='/login' component={Login} />
-              <ProtectedRoute exact path='/' component={Main}/>
+              <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
               <ProtectedRoute exact path='/tasks' component={AllTasks}/>
+              <ProtectedRoute path='*' component={() => <Redirect to='/dashboard'/>}/>
             </Switch>
-          </BrowserRouter>
+          </Router>
         </div>
       </Provider>
     );
