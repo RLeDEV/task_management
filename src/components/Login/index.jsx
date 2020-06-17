@@ -59,7 +59,7 @@ class Login extends Component {
                                 from: this.props.history.location
                             }
                     }
-                } /> : this.props.user.isLoading && this.props.user.isAuthenticated === null ?
+                } /> : this.props.user.isLoading ?
                  <Loading />
                  :
             <div className="login-panel">
