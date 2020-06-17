@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
@@ -14,13 +14,6 @@ class Navbar extends Component {
         this.logOut = this.logOut.bind(this);
     }
 
-    // componentDidUpdate(prevProps) {
-    //     // Getting the email of the user
-    //     if (prevProps.user.user !== this.props.user.user) {
-    //       console.log(this.props.user.user.user[0].email)
-    //     }
-    // }
-
     logOut() {
         this.props.logoutUser();
         this.props.history.push('/login');
@@ -29,28 +22,29 @@ class Navbar extends Component {
     render() {
         return (
             <div className="navbar">
+                {this.props.location.pathname==='/login' ? false :
                 <React.Fragment>
                     <div className="wrapper">
                         <div className="top-navbar">
                             <div className="top-menu">
-                                    <NavLink style={{textDecoration: 'none'}} className="logo" exact to='/'>
+                                    <Link style={{textDecoration: 'none'}} className="logo" exact to='/'>
                                         <div>Task Manager</div>
-                                    </NavLink>
+                                    </Link>
                                 <ul className="nav-menu">
                                     <li className="nav-item">
-                                        <NavLink className="link" exact to="/">
+                                        <Link className="link" exact to="/">
                                             <i className="fas fa-chart-line"></i>Dashboard
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="link" exact to="/tasks">
+                                        <Link className="link" exact to="/tasks">
                                             <i className="fas fa-tasks"></i>Tasks
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink className="link" exact to="/create">
+                                        <Link className="link" exact to="/create">
                                             <i className="fas fa-plus-square"></i>Create
-                                        </NavLink>
+                                        </Link>
                                     </li>
                                 </ul>
                                 <ul className="nav-manage">
@@ -67,21 +61,8 @@ class Navbar extends Component {
                             </div>
                         </div>
                     </div>
-                    {/* <div> */}
-                        <Route
-                        exact path="/"
-                        render={props => <Dashboard />}
-                        />
-                        <Route
-                            path="/tasks"
-                            render={props => <AllTasks />}
-                        />
-                        {/* <Route
-                        exact path="/create"
-                        render={props => <Create />}
-                        /> */}
-                    {/* </div> */}
                 </React.Fragment>
+                }
             </div>
         )
     }
