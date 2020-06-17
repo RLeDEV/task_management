@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/authActions';
 import { withRouter } from 'react-router';
-import AllTasks from '../Tasks';
-import Dashboard from '../Dashboard';
 import './index.css';
 
 class Navbar extends Component {
