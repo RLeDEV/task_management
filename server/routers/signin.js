@@ -52,7 +52,7 @@ router.get('/auth', auth, async (req,res) => {
                 return res.status(401).send(JSON.stringify({ data: err }));
             }
             return res.status(200).json({
-                user: results
+                results
             })
         })
     } catch (err) {
