@@ -42,9 +42,9 @@ router.get('/user/:uid', auth, async (req, res) => {
 })
 
 router.post('/update', auth, async (req, res) => {
-    const taskId = req.params.taskId;
-    const status = req.params.status.toLowerCase();
-    query = `UPDATE task SET status = ${status} WHERE id = ${taskId}`;
+    const taskId = req.body.id;
+    const status = req.body.status.toLowerCase();
+    query = `UPDATE task SET status = '${status}' WHERE id = ${taskId}`;
     try {
         await connection.query(query, (err, results) => {
             if(err) {
