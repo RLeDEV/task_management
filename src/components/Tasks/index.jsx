@@ -8,28 +8,7 @@ class AllTasks extends Component {
         super(props);
         this.removeItem = this.removeItem.bind(this);
         this.state = {
-            tasks: [],
-            uid: null
-        }
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            if(this.state.uid === null) {
-                this.setState({uid: this.props.user.user.user[0].id})
-            }
-        }, 400)
-        if(this.state.uid !== null) {
-            fetch(`http://localhost:3001/tasks/user/${this.state.uid}`)
-                .then(response => response.json())
-                .then(data => this.setState({ tasks: data.data }));
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.user.user !== this.props.user.user) {
-            const uid = this.props.user.user.user[0].id;
-            this.setState({uid});
+            tasks: []
         }
     }
 
@@ -40,10 +19,18 @@ class AllTasks extends Component {
     }
 
     render() {
-        if(this.state.uid !== null && this.state.tasks.length < 1) {
-            fetch(`http://localhost:3001/tasks/user/${this.state.uid}`)
-            .then(response => response.json())
-            .then(data => this.setState({ tasks: data.data }));
+        // Checks if uid is already initalized in redux and fetching tasks from API
+        if(this.props.user.user !== null) {
+            const uid = this.props.user.user.results[0].id;
+            if(this.state.tasks.length < 1) {
+                try {
+                    axios.get(`http://localhost:3001/api/tasks/user/${uid}`)
+                    .then (response => this.setState({tasks: response.data.data}));
+                }
+                catch(err) {
+                    console.log(err);
+                }
+            }
         }
         if(this.state.tasks !== null) {
             var tasks = this.state.tasks.map((item, i) => {
