@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 // // Router usage
-app.use('/tasks', tasks);
-app.use('/users', signin);
+app.use('/api/tasks', tasks);
+app.use('/api/users', signin);
 
 // app.get('/check', function (req, res) {
 //     return res.send('success');
