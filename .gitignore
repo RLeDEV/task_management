@@ -3,6 +3,9 @@
 # ENV file
 .ENV
 
+# VS Code
+.vscode
+
 # dependencies
 /node_modules
 /.pnp
