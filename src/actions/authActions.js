@@ -12,7 +12,7 @@ export const loadUser = () => (dispatch, getState) => {
     // User loading
     dispatch({ type: LOGIN_LOADING });
 
-    axios.get('http://localhost:3001/users/auth', tokenConfig(getState))
+    axios.get('http://localhost:3001/api/users/auth', tokenConfig(getState))
     .then(res => {
         dispatch({
             type: LOGIN_LOADED,
@@ -36,7 +36,7 @@ export const loginUser = (email, password) => async dispatch => {
     const body = JSON.stringify({ email, password });
 
     try {
-        const res = await axios.post('http://localhost:3001/users/login', body, config);
+        const res = await axios.post('http://localhost:3001/api/users/login', body, config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
