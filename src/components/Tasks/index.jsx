@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Task from './Task';
 import axios from 'axios';
+import {config} from '../Utils/getConfig';
+
 import './index.css';
 class AllTasks extends Component {
     constructor(props){
@@ -24,7 +26,7 @@ class AllTasks extends Component {
             const uid = this.props.user.user.results[0].id;
             if(this.state.tasks.length < 1) {
                 try {
-                    axios.get(`http://localhost:3001/api/tasks/user/${uid}`)
+                    axios.get(`http://localhost:3001/api/tasks/user/${uid}`, config())
                     .then (response => this.setState({tasks: response.data.data}));
                 }
                 catch(err) {
