@@ -1,4 +1,6 @@
 import React , { Component } from 'react';
+import {config} from '../Utils/getConfig';
+import axios from 'axios';
 import './index.css';
 
 class Task extends Component {
@@ -14,6 +16,7 @@ class Task extends Component {
         }
         this.toggleVisible = this.toggleVisible.bind(this);
         this.onClickDelete = this.onClickDelete.bind(this);
+        this.onSetStatus = this.onSetStatus.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +38,20 @@ class Task extends Component {
         var index = parseInt(this.props.id - 1);
         this.props.removeItem(index);
         this.forceUpdate()
+    }
+
+    onSetStatus(newStatus) {
+        const body = {
+            id: this.props.info.id,
+            status: newStatus
+        }
+        try {
+            axios.post(`http://localhost:3001/api/tasks/update`, body, config())
+            this.setState({status: newStatus});
+        }
+        catch(err){
+            console.log(err);
+        }
     }
 
     render() {
@@ -65,14 +82,14 @@ class Task extends Component {
                         </div>
                     </div>
                     <div className="task-details-extend">
-                        <i className="fas fa-plus" onClick={this.toggleVisible} title="Extend"></i>
+                        <i className="fas fa-eye" onClick={this.toggleVisible} title="Extend"></i>
                         <i className="fas fa-trash-alt" onClick={this.onClickDelete}></i>
                         <div className="status-dropdown">
                             <div className={`status-btn ${this.state.status.toLowerCase()}`}>{this.state.status}</div>
                             <div className="dropdown-content">
-                                <span className="dropdown-choose" onClick={() => this.setState({status: 'pending'})}>Pending</span>
-                                <span className="dropdown-choose" onClick={() => this.setState({status: 'in-progress'})}>In Progress</span>
-                                <span className="dropdown-choose" onClick={() => this.setState({status: 'done'})}>Done</span>
+                                <span className="dropdown-choose" onClick={() => this.onSetStatus('pending')}>Pending</span>
+                                <span className="dropdown-choose" onClick={() => this.onSetStatus('in-progress')}>In Progress</span>
+                                <span className="dropdown-choose" onClick={() => this.onSetStatus('done')}>Done</span>
                             </div>
                         </div>
                     </div>
