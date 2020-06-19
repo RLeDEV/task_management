@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Task from './Task';
 import axios from 'axios';
+import {Loading} from '../Utils/Loading';
 import {config} from '../Utils/getConfig';
 
 import './index.css';
@@ -43,7 +44,7 @@ class AllTasks extends Component {
         }
         return (
             <div className="tasks-display">
-                {tasks}
+                {tasks.length > 0 ? tasks : <Loading/>}
             </div>
         )
     }
