@@ -21,7 +21,7 @@ class AllTasks extends Component {
 
     removeItem(index) {
         let currTasks = this.state.tasks;
-        currTasks.splice(index, 1);
+        currTasks.splice(index - 1, 1);
         this.setState({tasks: currTasks});
     }
 
@@ -52,10 +52,21 @@ class AllTasks extends Component {
         }
         if(this.state.tasks !== null) {
             var tasks = this.state.tasks.map((item, i) => {
-                if(this.state.filterByGroup !== null && item.status === this.state.filterByGroup) {
+                // Display tasks that are in the same status group and contains the title the user inserted
+                // Related to tasks that are sorted by status and by title
+                if(this.state.filterByGroup !== null && item.status === this.state.filterByGroup && this.state.filterByTitle !== '' && item.title.toLowerCase().includes(this.state.filterByTitle.toLowerCase())) {
                     return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
                 }
-                else if(this.state.filterByGroup === null) {
+                // Display tasks that contains the title the user inserted
+                else if(this.state.filterByTitle !== '' && item.title.toLowerCase().includes(this.state.filterByTitle.toLowerCase())) {
+                    return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
+                }
+                // Display tasks that are in the same status group when the user didn't insert filter by title
+                else if(this.state.filterByGroup !== null && item.status === this.state.filterByGroup && this.state.filterByTitle === '') {
+                    return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
+                }
+                // Display all tasks ('All' btn)
+                else if(this.state.filterByGroup === null && this.state.filterByTitle === '') {
                     return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
                 }
                 return null;
