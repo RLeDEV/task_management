@@ -1,12 +1,13 @@
 const express = require('express');
 const connection = require('./connector');
 const auth = require('../middleware/auth');
+const { query } = require('express');
 var router = express.Router();
 
 // Get a task from DB by ID
 router.get('/task/:id', auth, async (req, res) => {
     const _id = req.params.id;
-    query = `SELECT * FROM task WHERE id = ${_id}`;
+    const query = `SELECT * FROM task WHERE id = ${_id}`;
     try {
         await connection.query(query, (err , results) => {
             if(err) {
@@ -23,7 +24,7 @@ router.get('/task/:id', auth, async (req, res) => {
 // Get all tasks by user id
 router.get('/user/:uid', auth, async (req, res) => {
     const _uid = req.params.uid;
-    query = `SELECT taskId as id, title, description, status, added_date
+    const query = `SELECT taskId as id, title, description, status, added_date
              FROM users as u INNER JOIN havetask as ht on u.id = ht.userId 
              INNER JOIN task as t on t.id = ht.taskId 
              WHERE u.id = ${_uid}`;
@@ -41,10 +42,11 @@ router.get('/user/:uid', auth, async (req, res) => {
     }
 })
 
+// Update task status
 router.post('/update', auth, async (req, res) => {
     const taskId = req.body.id;
     const status = req.body.status.toLowerCase();
-    query = `UPDATE task SET status = '${status}' WHERE id = ${taskId}`;
+    const query = `UPDATE task SET status = '${status}' WHERE id = ${taskId}`;
     try {
         await connection.query(query, (err, results) => {
             if(err) {
@@ -56,6 +58,24 @@ router.post('/update', auth, async (req, res) => {
     }
     catch(err) {
         return res.status(401).json({ msg: 'An error occured while tried to update task status'});
+    }
+})
+
+// Delete task
+router.post('/delete', auth, async (req, res) => {
+    const taskId = req.body.id;
+    const query = `DELETE FROM task WHERE id = ${taskId}`;
+    try {
+        await connection.query(query, (err, results) => {
+            if(err) {
+                console.log(err);
+                return res.send(JSON.stringify({data: err}));
+            }
+            return res.send(JSON.stringify({data: results}));
+        })
+    }
+    catch(err) {
+        return res.status(401).json({ msg: 'An error occured while tried to delete task'});
     }
 })
 

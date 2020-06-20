@@ -19,10 +19,20 @@ class AllTasks extends Component {
         }
     }
 
-    removeItem(index) {
+    removeItem(index, title) {
         let currTasks = this.state.tasks;
-        currTasks.splice(index - 1, 1);
-        this.setState({tasks: currTasks});
+        currTasks = currTasks.filter(el => el.id !== index)
+        try {
+            const body = {
+                id: index,
+                status: title
+            }
+            axios.post(`http://localhost:3001/api/tasks/delete`, body, config())
+            this.setState({tasks: currTasks});
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
 
     onFilterByCategoryChange(category) {

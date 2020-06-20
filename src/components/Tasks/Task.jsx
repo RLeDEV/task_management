@@ -35,8 +35,9 @@ class Task extends Component {
     }
 
     onClickDelete() {
-        var index = parseInt(this.props.id - 1);
-        this.props.removeItem(index);
+        var title = this.state.title;
+        var index = parseInt(this.props.info.id);
+        this.props.removeItem(index, title);
     }
 
     onSetStatus(newStatus) {
