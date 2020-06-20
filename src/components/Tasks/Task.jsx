@@ -47,11 +47,13 @@ class Task extends Component {
         }
         try {
             axios.post(`http://localhost:3001/api/tasks/update`, body, config())
-            this.setState({status: newStatus});
+            this.setState({status: newStatus.toLowerCase()});
         }
         catch(err){
             console.log(err);
         }
+        // Moving task from current category to the new category (bsaed on parent)
+        this.props.statusChange(this.props.info.id, newStatus);
     }
 
     render() {
