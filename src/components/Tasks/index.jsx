@@ -10,8 +10,12 @@ class AllTasks extends Component {
     constructor(props){
         super(props);
         this.removeItem = this.removeItem.bind(this);
+        this.onFilterByCategoryChange = this.onFilterByCategoryChange.bind(this);
+        this.onStatusChange = this.onStatusChange.bind(this);
         this.state = {
-            tasks: []
+            tasks: [],
+            filterByGroup: null,
+            filterByTitle: ''
         }
     }
 
@@ -19,6 +23,17 @@ class AllTasks extends Component {
         let currTasks = this.state.tasks;
         currTasks.splice(index, 1);
         this.setState({tasks: currTasks});
+    }
+
+    onFilterByCategoryChange(category) {
+        this.setState({filterByGroup: category});
+    }
+
+    onStatusChange(taskId, status) {
+        // Moving a task which changed its status from the old status category to the new status category.
+        const tasks = this.state.tasks;
+        tasks[taskId - 1].status = status;
+        this.setState({tasks});
     }
 
     render() {
@@ -37,13 +52,30 @@ class AllTasks extends Component {
         }
         if(this.state.tasks !== null) {
             var tasks = this.state.tasks.map((item, i) => {
-                return (
-                    <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} />
-                );
+                if(this.state.filterByGroup !== null && item.status === this.state.filterByGroup) {
+                    return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
+                }
+                else if(this.state.filterByGroup === null) {
+                    return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
+                }
+                return null;
             });
         }
         return (
             <div className="tasks-display">
+                <div className="tasks-filter">
+                    <div className="filter-by-group">
+                        Category:
+                        <div className="filter-btn" style={{backgroundColor:'#a5e412'}} onClick={() => this.onFilterByCategoryChange('pending')}>Pending</div>
+                        <div className="filter-btn" style={{backgroundColor:'rgb(4, 176, 255)'}} onClick={() => this.onFilterByCategoryChange('in-progress')}>In Progress</div>
+                        <div className="filter-btn" style={{backgroundColor:'rgb(255, 164, 60)'}} onClick={() => this.onFilterByCategoryChange('done')}>Done</div>
+                        <div className="filter-btn" style={{backgroundColor:'rgb(192, 71, 182)'}} onClick={() => this.onFilterByCategoryChange(null)}>All</div>
+                    </div>
+                    <div className="filter-by-title">
+                        Sreach By Title: 
+                        <input type="text" id="filter-txt" placeholder="Insert title of task" onChange={e => this.setState({filterByTitle: e.target.value})}/>
+                    </div>
+                </div>
                 {tasks.length > 0 ? tasks : <Loading/>}
             </div>
         )
