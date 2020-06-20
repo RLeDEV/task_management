@@ -7,6 +7,56 @@
     margin-bottom: 50px;
 }
 
+.tasks-display .tasks-filter {
+    margin: 10px 0 10px 0;
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.836);
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px 0px rgba(137, 160, 146, 0.61);
+    display: flex;
+}
+
+.tasks-display .tasks-filter .filter-by-group {
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.tasks-display .tasks-filter .filter-by-group .filter-btn {
+    display: inline-block;
+    margin: 5px;
+    width: 80px;
+    padding: 3px 10px 3px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.5s;
+    text-transform: uppercase;
+}
+
+.tasks-display .tasks-filter .filter-by-group .filter-btn:hover {
+    background-color: rgb(71, 192, 152) !important;
+    color: white;
+    transition: all 0.5s;
+}
+
+.tasks-display .tasks-filter .filter-by-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.tasks-display .tasks-filter .filter-by-title #filter-txt {
+    margin: 5px 15px;
+    padding: 3px 5px 3px 5px;
+    border: 2px solid rgba(139, 190, 139, 0.486);
+    border-radius: 8px;
+    outline: none;
+    width: 300px;
+
+}
+
 .task {
     display: flex;
     justify-content: flex-start;
