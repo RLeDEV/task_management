@@ -23,7 +23,7 @@ class Task extends Component {
         this.setState({
             title: this.props.info.title,
             description: this.props.info.description,
-            createDate: this.props.info.createDate,
+            createDate: this.props.info.added_date.substring(0,10),
             estimatedDate: this.props.info.estimatedDate,
             status: this.props.info.status
         })

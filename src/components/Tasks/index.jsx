@@ -68,7 +68,7 @@ class AllTasks extends Component {
                     return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
                 }
                 // Display tasks that contains the title the user inserted
-                else if(this.state.filterByTitle !== '' && item.title.toLowerCase().includes(this.state.filterByTitle.toLowerCase())) {
+                else if(this.state.filterByGroup === null && this.state.filterByTitle !== '' && item.title.toLowerCase().includes(this.state.filterByTitle.toLowerCase())) {
                     return <Task info={item} id={i+1} removeItem={this.removeItem} key={i+1} statusChange={this.onStatusChange} />
                 }
                 // Display tasks that are in the same status group when the user didn't insert filter by title
@@ -93,7 +93,7 @@ class AllTasks extends Component {
                         <div className="filter-btn" style={{backgroundColor:'rgb(192, 71, 182)'}} onClick={() => this.onFilterByCategoryChange(null)}>All</div>
                     </div>
                     <div className="filter-by-title">
-                        Sreach By Title: 
+                        Search By Title: 
                         <input type="text" id="filter-txt" placeholder="Insert title of task" onChange={e => this.setState({filterByTitle: e.target.value})}/>
                     </div>
                 </div>
