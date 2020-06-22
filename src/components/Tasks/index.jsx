@@ -13,7 +13,7 @@ class AllTasks extends Component {
         this.onFilterByCategoryChange = this.onFilterByCategoryChange.bind(this);
         this.onStatusChange = this.onStatusChange.bind(this);
         this.state = {
-            tasks: [],
+            tasks: null,
             filterByGroup: null,
             filterByTitle: ''
         }
@@ -36,6 +36,7 @@ class AllTasks extends Component {
     }
 
     onFilterByCategoryChange(category) {
+        // Changes the current group filter to the new choosed category
         this.setState({filterByGroup: category});
     }
 
@@ -50,7 +51,7 @@ class AllTasks extends Component {
         // Checks if uid is already initalized in redux and fetching tasks from API
         if(this.props.user.user !== null) {
             const uid = this.props.user.user.results[0].id;
-            if(this.state.tasks.length < 1) {
+            if(this.state.tasks === null) {
                 try {
                     axios.get(`http://localhost:3001/api/tasks/user/${uid}`, config())
                     .then (response => this.setState({tasks: response.data.data}));
@@ -97,7 +98,8 @@ class AllTasks extends Component {
                         <input type="text" id="filter-txt" placeholder="Insert title of task" onChange={e => this.setState({filterByTitle: e.target.value})}/>
                     </div>
                 </div>
-                {tasks.length > 0 ? tasks : <Loading/>}
+                {/* If there tasks are already initialized, then display, else display loading */}
+                {this.state.tasks !== null ? tasks : <Loading/>}
             </div>
         )
     }
