@@ -52,6 +52,7 @@ class Navbar extends Component {
                                         <div>
                                             <i className="fas fa-user-circle user-menu-icon"></i>
                                             <div className="user-menu-drop-down">
+                                                <div className="tirangle"></div>
                                                 <span>Profile</span>
                                                 <span onClick={this.logOut}>Logout</span>
                                             </div>
