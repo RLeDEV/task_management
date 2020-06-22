@@ -98,6 +98,11 @@
     margin-right: 10px;
 }
 
+.wrapper .top-navbar .top-menu .user-name{
+    position: relative;
+    width: 100%;
+}
+
 .wrapper .top-navbar .top-menu .user-name i {
     font-size: 30px;
 }
@@ -114,6 +119,7 @@
     font-size: 9px;
     background-color: #d0e2d6;
     /* min-width: 110px; */
+    right: 0;
     text-align: center;
     margin: 13px 0 15px 0;
     box-shadow: 0 8px 16px 0px rgba(0,0,0,0.2);
