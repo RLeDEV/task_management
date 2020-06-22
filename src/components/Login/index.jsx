@@ -35,7 +35,6 @@ class Login extends Component {
         this.setState({loading: true})
         setTimeout(() => {
             if(this.props.user.token != null) {
-                this.setState({loggedIn: true})
                 this.props.history.push('/');
             }
             // Error handling
@@ -46,6 +45,11 @@ class Login extends Component {
                 }, 3000)
             }
         }, 4000)
+    }
+
+    componentWillUnmount() {
+        // Change the status of loggedIn when the component has finished its action
+        this.setState({loggedIn: true})
     }
 
     render() {
