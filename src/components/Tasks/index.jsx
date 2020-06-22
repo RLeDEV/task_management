@@ -87,7 +87,6 @@ class AllTasks extends Component {
             <div className="tasks-display">
                 <div className="tasks-filter">
                     <div className="filter-by-group">
-                        Category:
                         <div className="filter-btn" style={{backgroundColor:'#a5e412'}} onClick={() => this.onFilterByCategoryChange('pending')}>Pending</div>
                         <div className="filter-btn" style={{backgroundColor:'rgb(4, 176, 255)'}} onClick={() => this.onFilterByCategoryChange('in-progress')}>In Progress</div>
                         <div className="filter-btn" style={{backgroundColor:'rgb(255, 164, 60)'}} onClick={() => this.onFilterByCategoryChange('done')}>Done</div>
