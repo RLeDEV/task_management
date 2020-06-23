@@ -1,9 +1,10 @@
 :root {
   --off-white: #fafafa;
-  background-image: url('./components/Login/background.jpeg');
+  background: url('./components/Login/background.jpeg') no-repeat center center fixed;
   height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
   font-family: 'Roboto', sans-serif;
 }
