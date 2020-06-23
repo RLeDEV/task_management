@@ -9,11 +9,11 @@
     text-align: center;
     font-weight: 600;
     font-size: 20px;
-    background-color: rgb(183, 221, 182);
-    max-width: 500px;
+    border-bottom: 1px solid rgb(183, 221, 182);
     padding: 5px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px 0 rgba(162, 201, 162, 0.514);
+    color: rgb(51, 94, 51);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 0 rgba(117, 206, 117, 0.514);
 }
 
 .create-task .content {
@@ -62,13 +62,17 @@
 .create-task .form .flex-outer li input:not([type='checkbox']),
 .flex-outer li textarea {
     padding: 15px;
-    /* border: 1px solid rgb(170, 189, 178); */
     border: none;
     background-color: rgba(183, 221, 182, 0.527);
     outline: none;
+    resize: none;
+    height: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom: 0.9px solid rgb(168, 199, 178)
 }
 
-.create-task .form .flex-outer li button {
+.create-task .form .flex-outer li .submit-btn {
+    cursor: pointer;
     margin-left: auto;
     padding: 8px 16px;
     border: none;
