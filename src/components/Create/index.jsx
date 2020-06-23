@@ -21,7 +21,8 @@ class Create extends React.Component {
             description: null,
             currentDate: currentDate,
             estimatedDate: null,
-            sending: false
+            alertType: '',
+            alertText: ''
         }
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
@@ -43,21 +44,36 @@ class Create extends React.Component {
             uid
         });
         try {
+            if(taskName === null || description === null || estimatedDate === null || uid === null) {
+                console.log(taskName)
+                console.log(description)
+                console.log(estimatedDate)
+                console.log(uid);
+                throw new Error('Error - user didn\'t set all the parameters.');
+            }
             await axios.post('http://localhost:3001/api/tasks/new', body, config());
             this.setState({
-                taskName: '',
-                estimatedDate: '',
-                description: '',
-                sending: true
+                taskName: null,
+                estimatedDate: null,
+                description: null,
+                alertType: 'succeed',
+                alertText: "The task has been added to your tasks list, now you can manage its status."
             })
-            // Showing an success alert for 3 seconds
-            setTimeout(() => {
-                this.setState({sending: false});
-            }, 3000)
         }
         catch(err) {
             console.log(err);
+            this.setState({
+                alertType: 'error',
+                alertText: "An error occured while tried to add your task, please try again."
+            })
         }
+        // Showing an success alert for 3 seconds
+        setTimeout(() => {
+            this.setState({
+                alertType: '',
+                alertText: ''
+            });
+        }, 3000)
     }
 
     render() {      
@@ -90,8 +106,8 @@ class Create extends React.Component {
                                     <div className="submit-btn" onClick={this.onFormSubmit}>Submit</div>
                                 </li>
                                 <li>
-                                    {/* Success alert display */}
-                                    {this.state.sending ? <Alert type="succeed" error="The task has been added to your tasks list, now you can manage its status."/> : null}
+                                    {/* Success / error alert display */}
+                                    {this.state.alertType !== '' ? <Alert type={this.state.alertType} error={this.state.alertText}/> : null}
                                 </li>
                             </ul>
                         </form>
