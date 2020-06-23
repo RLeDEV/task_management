@@ -2,6 +2,7 @@ import React from 'react';
 import { config } from '../Utils/getConfig';
 import { connect } from 'react-redux';
 import './index.css';
+import Alert from '../Utils/Alert';
 import axios from 'axios';
 
 // Define of current date
@@ -19,7 +20,8 @@ class Create extends React.Component {
             taskName: null,
             description: null,
             currentDate: currentDate,
-            estimatedDate: null
+            estimatedDate: null,
+            sending: false
         }
         this.onFormSubmit = this.onFormSubmit.bind(this);
     }
@@ -40,12 +42,22 @@ class Create extends React.Component {
             status,
             uid
         });
-        await axios.post('http://localhost:3001/api/tasks/new', body, config());
-        this.setState({
-            taskName:null,
-            estimatedDate: null,
-            description: null
-        })
+        try {
+            await axios.post('http://localhost:3001/api/tasks/new', body, config());
+            this.setState({
+                taskName: '',
+                estimatedDate: '',
+                description: '',
+                sending: true
+            })
+            // Showing an success alert for 3 seconds
+            setTimeout(() => {
+                this.setState({sending: false});
+            }, 3000)
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
 
     render() {      
@@ -76,6 +88,10 @@ class Create extends React.Component {
                                 </li>
                                 <li>
                                     <div className="submit-btn" onClick={this.onFormSubmit}>Submit</div>
+                                </li>
+                                <li>
+                                    {/* Success alert display */}
+                                    {this.state.sending ? <Alert type="succeed" error="The task has been added to your tasks list, now you can manage its status."/> : null}
                                 </li>
                             </ul>
                         </form>
