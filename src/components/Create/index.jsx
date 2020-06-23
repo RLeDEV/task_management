@@ -25,7 +25,7 @@ export default class Create extends React.Component {
                                 </li>
                                 <li>
                                     <label htmlFor="description">Description</label>
-                                    <input type="text" id="description" placeholder="Enter your task description"/>
+                                    <textarea type="text" id="description" placeholder="Enter your task description"/>
                                 </li>
                                 <li>
                                     <label htmlFor="current-date">Created Date</label>
