@@ -14,8 +14,8 @@ class Navbar extends Component {
     logOut() {
         // Loging the user out using redux action & navigating to login page
         this.props.logoutUser();
-        this.props.history.push('/login');
     }
+
     render() {
         return (
             <div className="navbar">
@@ -27,9 +27,9 @@ class Navbar extends Component {
                     <div className="wrapper">
                         <div className="top-navbar">
                             <div className="top-menu">
-                                    <Link style={{textDecoration: 'none'}} className="logo" to='/'>
-                                        <div>Task Manager</div>
-                                    </Link>
+                                <Link style={{textDecoration: 'none'}} className="logo" to='/'>
+                                    <div>Task Manager</div>
+                                </Link>
                                 <ul className="nav-menu">
                                     <li className="nav-item">
                                         <Link className="link" to="/">
@@ -53,8 +53,12 @@ class Navbar extends Component {
                                             <i className="fas fa-user-circle user-menu-icon"></i>
                                             <div className="user-menu-drop-down">
                                                 <div className="tirangle"></div>
-                                                <span>Profile</span>
-                                                <span onClick={this.logOut}>Logout</span>
+                                                <Link className="link" to='/profile'>
+                                                    <span>Profile</span>
+                                                </Link>
+                                                <Link className="link" to='/login'>
+                                                    <span onClick={this.logOut}>Logout</span>
+                                                </Link>
                                             </div>
                                         </div>
                                     </li>
