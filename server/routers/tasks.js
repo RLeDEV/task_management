@@ -100,20 +100,22 @@ router.post('/new', auth, async (req, res) => {
             }
         })
         // Getting the new inserted task id
-        await connection.query(findTaskIdQuery, (err, results) => {
+        await connection.query(findTaskIdQuery, async (err, results) => {
             if(err) {
                 console.log(err);
                 return res.send(JSON.stringify({data: err}));
             }
             taskId = JSON.stringify(results[0].id);
             // Injecting into havetask table
-            connection.query(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`, (err, results) => {
-                if(err) {
-                    console.log(err);
-                    return res.send(JSON.stringify({data: err}));
-                }
-                return res.send(JSON.stringify({data: results}));
-            })
+            if(taskId !== '') {
+                await connection.query(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`, (err, results) => {
+                    if(err) {
+                        console.log(err);
+                        return res.send(JSON.stringify({data: err}));
+                    }
+                    return res.send(JSON.stringify({data: results}));
+                })
+            }
         })
     }
     catch(err) {
