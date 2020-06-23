@@ -53,7 +53,7 @@ class Task extends Component {
             console.log(err);
         }
         // Moving task from current category to the new category (bsaed on parent)
-        this.props.statusChange(this.props.info.id, newStatus);
+        this.props.statusChange(this.props.id, newStatus);
     }
 
     render() {
