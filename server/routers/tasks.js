@@ -79,4 +79,46 @@ router.post('/delete', auth, async (req, res) => {
     }
 })
 
+// Add new task
+// Need to fix it
+router.post('/new', auth, async (req, res) => {
+    const uid = req.body.uid;
+    const taskName = req.body.taskName;
+    const description = req.body.description;
+    const createdDate = req.body.createdDate;
+    const estimatedDate = req.body.estimatedDate;
+    const status = req.body.status;
+    let taskId = '';
+    addTaskQuery = `INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`;
+    findTaskIdQuery = `SELECT id FROM task WHERE title = '${taskName}'`;
+    try {
+        // Injecting into task table
+        await connection.query(addTaskQuery, (err, results) => {
+            if(err) {
+                console.log(err);
+                return res.send(JSON.stringify({data: err}));
+            }
+        })
+        // Getting the new inserted task id
+        await connection.query(findTaskIdQuery, (err, results) => {
+            if(err) {
+                console.log(err);
+                return res.send(JSON.stringify({data: err}));
+            }
+            taskId = JSON.stringify(results[0].id);
+            // Injecting into havetask table
+            connection.query(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`, (err, results) => {
+                if(err) {
+                    console.log(err);
+                    return res.send(JSON.stringify({data: err}));
+                }
+                return res.send(JSON.stringify({data: results}));
+            })
+        })
+    }
+    catch(err) {
+        console.log(err);
+        return res.status(401).json({ msg: 'An error occured while tried to add task'});
+    }
+})
 module.exports = router;
