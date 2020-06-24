@@ -79,7 +79,6 @@ router.post('/delete', auth, async (req, res) => {
     }
 })
 
-// Add new task
 router.post('/new', auth, async (req, res) => {
     const uid = req.body.uid;
     const taskName = req.body.taskName;
@@ -87,37 +86,57 @@ router.post('/new', auth, async (req, res) => {
     const createdDate = req.body.createdDate;
     const estimatedDate = req.body.estimatedDate;
     const status = req.body.status;
+    let taskId = '';
+    addTaskQuery = `INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`;
+    findTaskIdQuery = `SELECT max(id) as id FROM task WHERE title = '${taskName}'`;
     try {
-        connection.query(`INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`, (err, results) => {
-        if(err) {
-            throw res.status(403);
-        }
-        var promise = []
-        promise.push(runQuery(`SELECT max(id) as id FROM task WHERE title='${taskName}'`));
-        Promise.all(promise)
-        .then((data) => {
-            const taskId = data[0][0].id;
-            runQuery(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`)
-        })
-        .catch(err => {
-            console.log(err);
-        })
-        return res.send(JSON.stringify({data: results}));
-    })}
+        // Injecting into task table
+        await connection.execute(addTaskQuery)
+        // Getting the new inserted task id
+        const getTaskId = await connection.execute(findTaskIdQuery)
+        taskId = JSON.stringify(getTaskId[0][0].id)
+        await connection.execute(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`);
+    }
     catch(err) {
-        return res.status(401).json({ msg: 'An error occured while tried to add new task'});
+        console.log(err);
+        return res.status(401).json({ msg: 'An error occured while tried to add task'});
     }
 })
 
-function runQuery(query) {
-    return new Promise((resolve, reject) => {
-        connection.query(query, function (err1, result1) {
-            if (err1) {
-                reject(err1);
-            } else {
-                resolve(JSON.parse(JSON.stringify(result1)));
-            }
-        })
-});
-}
+// // Add new task
+// router.post('/new', auth, async (req, res) => {
+//     const uid = req.body.uid;
+//     const taskName = req.body.taskName;
+//     const description = req.body.description;
+//     const createdDate = req.body.createdDate;
+//     const estimatedDate = req.body.estimatedDate;
+//     const status = req.body.status;
+//     connection.query(`INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`, (err, results) => {
+//         if(err) {
+//             throw res.status(403);
+//         }
+//         var promise = []
+//         promise.push(runQuery(`SELECT max(id FROM task WHERE title='${taskName}'`));
+//         Promise.all(promise)
+//         .then((data) => {
+//             console.log(data);
+//         })
+//         .catch(err => {
+//             console.log(err);
+//         }) 
+//         console.log('blabla')
+//     } )
+// })
+
+// function runQuery(query) {
+//     return new Promise((resolve, reject) => {
+//         connection.query(query, function (err1, result1) {
+//             if (err1) {
+//                 reject(err1);
+//             } else {
+//                 resolve(JSON.parse(JSON.stringify(result1)));
+//             }
+//         })
+// });
+// }
 module.exports = router;
