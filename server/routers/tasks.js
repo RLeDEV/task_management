@@ -24,7 +24,7 @@ router.get('/task/:id', auth, async (req, res) => {
 // Get all tasks by user id
 router.get('/user/:uid', auth, async (req, res) => {
     const _uid = req.params.uid;
-    const query = `SELECT taskId as id, title, description, status, added_date
+    const query = `SELECT taskId as id, title, description, status, added_date, estimated_date
              FROM users as u INNER JOIN havetask as ht on u.id = ht.userId 
              INNER JOIN task as t on t.id = ht.taskId 
              WHERE u.id = ${_uid}`;
@@ -80,11 +80,10 @@ router.post('/new', auth, async (req, res) => {
     const uid = req.body.uid;
     const taskName = req.body.taskName;
     const description = req.body.description;
-    const createdDate = req.body.createdDate;
     const estimatedDate = req.body.estimatedDate;
     const status = req.body.status;
     let taskId = '';
-    addTaskQuery = `INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`;
+    addTaskQuery = `INSERT INTO task (title,description,status,estimated_date) VALUES ('${taskName}','${description}','${status}','${estimatedDate}')`;
     findTaskIdQuery = `SELECT max(id) as id FROM task WHERE title = '${taskName}'`;
     try {
         // Injecting into task table

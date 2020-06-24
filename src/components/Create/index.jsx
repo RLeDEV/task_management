@@ -6,12 +6,15 @@ import Alert from '../Utils/Alert';
 import axios from 'axios';
 
 // Define of current date
-let newDate = new Date()
-let date = newDate.getDate();
-let month = newDate.getMonth() + 1;
-let calcedMonth = month < 10 ? '0' + month : month;
-let year = newDate.getFullYear();
-const currentDate = year + '-' + calcedMonth + '-' + date;
+export function getCurrentDate() {
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let calcedMonth = month < 10 ? '0' + month : month;
+    let year = newDate.getFullYear();
+    const currentDate = year + '-' + calcedMonth + '-' + date;
+    return currentDate;
+}
 
 class Create extends React.Component {
     constructor() {
@@ -19,7 +22,7 @@ class Create extends React.Component {
         this.state = {
             taskName: '',
             description: '',
-            currentDate: currentDate,
+            currentDate: getCurrentDate(),
             estimatedDate: '',
             alertType: '',
             alertText: ''
@@ -101,11 +104,11 @@ class Create extends React.Component {
                                 </li>
                                 <li>
                                     <label htmlFor="current-date">Created Date</label>
-                                    <input type="date" id="created-date" value={currentDate} disabled/>
+                                    <input type="date" id="created-date" value={getCurrentDate()} disabled/>
                                 </li>
                                 <li>
                                     <label htmlFor="estimated-date">Estimated Date</label>
-                                    <input value={this.state.estimatedDate} type="date" id="estimated-date" min={currentDate} onChange={e => this.setState({estimatedDate: e.target.value})}/>
+                                    <input value={this.state.estimatedDate} type="date" id="estimated-date" min={getCurrentDate()} onChange={e => this.setState({estimatedDate: e.target.value})}/>
                                 </li>
                                 <li>
                                     <div className="submit-btn" onClick={this.onFormSubmit}>Submit</div>
