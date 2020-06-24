@@ -80,7 +80,6 @@ router.post('/delete', auth, async (req, res) => {
 })
 
 // Add new task
-// Need to fix it
 router.post('/new', auth, async (req, res) => {
     const uid = req.body.uid;
     const taskName = req.body.taskName;
@@ -88,39 +87,37 @@ router.post('/new', auth, async (req, res) => {
     const createdDate = req.body.createdDate;
     const estimatedDate = req.body.estimatedDate;
     const status = req.body.status;
-    let taskId = '';
-    addTaskQuery = `INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`;
-    findTaskIdQuery = `SELECT id FROM task WHERE title = '${taskName}'`;
     try {
-        // Injecting into task table
-        await connection.query(addTaskQuery, (err, results) => {
-            if(err) {
-                console.log(err);
-                return res.send(JSON.stringify({data: err}));
-            }
+        connection.query(`INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`, (err, results) => {
+        if(err) {
+            throw res.status(403);
+        }
+        var promise = []
+        promise.push(runQuery(`SELECT max(id) as id FROM task WHERE title='${taskName}'`));
+        Promise.all(promise)
+        .then((data) => {
+            const taskId = data[0][0].id;
+            runQuery(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`)
         })
-        // Getting the new inserted task id
-        await connection.query(findTaskIdQuery, async (err, results) => {
-            if(err) {
-                console.log(err);
-                return res.send(JSON.stringify({data: err}));
-            }
-            taskId = JSON.stringify(results[0].id);
-            // Injecting into havetask table
-            if(taskId !== '') {
-                await connection.query(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`, (err, results) => {
-                    if(err) {
-                        console.log(err);
-                        return res.send(JSON.stringify({data: err}));
-                    }
-                    return res.send(JSON.stringify({data: results}));
-                })
-            }
+        .catch(err => {
+            console.log(err);
         })
-    }
+        return res.send(JSON.stringify({data: results}));
+    })}
     catch(err) {
-        console.log(err);
-        return res.status(401).json({ msg: 'An error occured while tried to add task'});
+        return res.status(401).json({ msg: 'An error occured while tried to add new task'});
     }
 })
+
+function runQuery(query) {
+    return new Promise((resolve, reject) => {
+        connection.query(query, function (err1, result1) {
+            if (err1) {
+                reject(err1);
+            } else {
+                resolve(JSON.parse(JSON.stringify(result1)));
+            }
+        })
+});
+}
 module.exports = router;
