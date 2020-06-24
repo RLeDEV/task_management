@@ -13,7 +13,6 @@ class Login extends Component {
             loggedIn: false,
             username: null,
             password: null,
-            loading: false,
             failed: false,
             errMsg: ''
         }
@@ -30,13 +29,10 @@ class Login extends Component {
         const password = this.state.password;
         
         // Changing the state in redux store
-        this.setState({loading: true})
         await this.props.loginUser(username, password)
         // Error handling
         if(this.props.user.token === null) {
-            setTimeout(() => {
-                this.setState({loading: false, failed: true, errMsg: "Incorrect username or password"})
-            }, 2000)
+            this.setState({failed: true, errMsg: "Incorrect username or password"})
         }
     }
 
@@ -67,7 +63,7 @@ class Login extends Component {
                         <input type="password" placeholder="Password" onChange={(evt) => this.setState({password: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.auth()}}}></input>
                     </div>
                     <div className="login-btn" onClick={() => this.auth()}>
-                            {this.state.loading ? <div>Loading..  <i className="fas fa-sync fa-spin"></i></div> : 'Login' }
+                            Login
                     </div>
                     {this.state.failed ? <Alert type="error" error={this.state.errMsg} /> : null }
                 </div>
