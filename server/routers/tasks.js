@@ -64,15 +64,12 @@ router.post('/update', auth, async (req, res) => {
 // Delete task
 router.post('/delete', auth, async (req, res) => {
     const taskId = req.body.id;
-    const query = `DELETE FROM task WHERE id = ${taskId}`;
+    const deleteTaskQuery = `DELETE FROM task WHERE id = ${taskId}`;
+    const deleteUserTaskQuery = `DELETE FROM havetask WHERE taskId = ${taskId}`
     try {
-        await connection.query(query, (err, results) => {
-            if(err) {
-                console.log(err);
-                return res.send(JSON.stringify({data: err}));
-            }
-            return res.send(JSON.stringify({data: results}));
-        })
+        await connection.execute(deleteTaskQuery);
+        await connection.execute(deleteUserTaskQuery);
+        return res.status(200).send(JSON.stringify({ msg: 'Successfully deleted a new task.'}));
     }
     catch(err) {
         return res.status(401).json({ msg: 'An error occured while tried to delete task'});
