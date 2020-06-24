@@ -24,7 +24,7 @@ class Task extends Component {
             title: this.props.info.title,
             description: this.props.info.description,
             createDate: this.props.info.added_date.substring(0,10),
-            estimatedDate: this.props.info.estimatedDate,
+            estimatedDate: this.props.info.estimated_date,
             status: this.props.info.status
         })
     }
