@@ -25,35 +25,22 @@ class Login extends Component {
         }
     }
 
-    auth = () => {
+    auth = async () => {
         const username = this.state.username;
         const password = this.state.password;
         
         // Changing the state in redux store
-        this.props.loginUser(username, password)
-        // Pushing to /app with protected route
         this.setState({loading: true})
-        setTimeout(() => {
-            if(this.props.user.token != null) {
-                this.props.history.push('/');
-            }
-            // Error handling
-            else {
+        await this.props.loginUser(username, password)
+        // Error handling
+        if(this.props.user.token === null) {
+            setTimeout(() => {
                 this.setState({loading: false, failed: true, errMsg: "Incorrect username or password"})
-                setTimeout(() => {
-                    this.setState({failed: false})
-                }, 3000)
-            }
-        }, 4000)
-    }
-
-    componentWillUnmount() {
-        // Change the status of loggedIn when the component has finished its action
-        this.setState({loggedIn: true})
+            }, 2000)
+        }
     }
 
     render() {
-        // console.log(this.props.user.isAuthenticated)
         return (
             <Fragment>
                 {this.props.user.isAuthenticated ? <Redirect to={
