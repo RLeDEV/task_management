@@ -17,10 +17,10 @@ class Create extends React.Component {
     constructor() {
         super();
         this.state = {
-            taskName: null,
-            description: null,
+            taskName: '',
+            description: '',
             currentDate: currentDate,
-            estimatedDate: null,
+            estimatedDate: '',
             alertType: '',
             alertText: ''
         }
@@ -44,18 +44,20 @@ class Create extends React.Component {
             uid
         });
         try {
-            if(taskName === null || description === null || estimatedDate === null || uid === null) {
+            if(taskName === '' || description === '' || estimatedDate === '' || uid === null) {
                 console.log(taskName)
                 console.log(description)
                 console.log(estimatedDate)
                 console.log(uid);
                 throw new Error('Error - user didn\'t set all the parameters.');
             }
+            console.log('sending request');
             await axios.post('http://localhost:3001/api/tasks/new', body, config());
+            console.log('request sent');
             this.setState({
-                taskName: null,
-                estimatedDate: null,
-                description: null,
+                taskName: '',
+                estimatedDate: '',
+                description: '',
                 alertType: 'succeed',
                 alertText: "The task has been added to your tasks list, now you can manage its status."
             })
@@ -63,6 +65,9 @@ class Create extends React.Component {
         catch(err) {
             console.log(err);
             this.setState({
+                taskName: '',
+                description: '',
+                estimatedDate: '',
                 alertType: 'error',
                 alertText: "An error occured while tried to add your task, please try again."
             })

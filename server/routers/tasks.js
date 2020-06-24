@@ -96,6 +96,7 @@ router.post('/new', auth, async (req, res) => {
         const getTaskId = await connection.execute(findTaskIdQuery)
         taskId = JSON.stringify(getTaskId[0][0].id)
         await connection.execute(`INSERT INTO havetask (id,userId,taskId) VALUES (${taskId},${uid},${taskId})`);
+        return res.status(200).send(JSON.stringify({ msg: 'Successfully added a new task.'}));
     }
     catch(err) {
         console.log(err);
@@ -103,40 +104,4 @@ router.post('/new', auth, async (req, res) => {
     }
 })
 
-// // Add new task
-// router.post('/new', auth, async (req, res) => {
-//     const uid = req.body.uid;
-//     const taskName = req.body.taskName;
-//     const description = req.body.description;
-//     const createdDate = req.body.createdDate;
-//     const estimatedDate = req.body.estimatedDate;
-//     const status = req.body.status;
-//     connection.query(`INSERT INTO task (title,description,status) VALUES ('${taskName}','${description}','${status}')`, (err, results) => {
-//         if(err) {
-//             throw res.status(403);
-//         }
-//         var promise = []
-//         promise.push(runQuery(`SELECT max(id FROM task WHERE title='${taskName}'`));
-//         Promise.all(promise)
-//         .then((data) => {
-//             console.log(data);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         }) 
-//         console.log('blabla')
-//     } )
-// })
-
-// function runQuery(query) {
-//     return new Promise((resolve, reject) => {
-//         connection.query(query, function (err1, result1) {
-//             if (err1) {
-//                 reject(err1);
-//             } else {
-//                 resolve(JSON.parse(JSON.stringify(result1)));
-//             }
-//         })
-// });
-// }
 module.exports = router;
