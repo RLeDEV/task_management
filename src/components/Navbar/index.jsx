@@ -19,8 +19,8 @@ class Navbar extends Component {
     render() {
         return (
             <div className="navbar">
-                {/* Checks if the path is login, if yes it will not display anything */}
-                {this.props.location.pathname==='/login' ? false :
+                {/* Checks if the path is login or register, if yes it will not display anything */}
+                {this.props.location.pathname==='/login' || this.props.location.pathname==='/register' ? false :
                 
                 // Navbar displaytion
                 <React.Fragment>
