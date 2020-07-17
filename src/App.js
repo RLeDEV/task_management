@@ -1,5 +1,6 @@
 import React from 'react';
 import Login from './components/Login';
+import Register from './components/Register/index.jsx'
 import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
@@ -24,9 +25,10 @@ class App extends React.Component {
         <div className="App">
           <Router history={history}>
             <Navbar />
-          <Switch>
+            <Switch>
               <Route exact path='/' render={() => <Redirect to='/dashboard'/>}/>
               <Route exact path='/login' component={Login} />
+              <Route exact path='/register' component={Register} />
               <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
               <ProtectedRoute exact path='/tasks' component={AllTasks}/>
               <ProtectedRoute exact path='/create' component={Create}/>
