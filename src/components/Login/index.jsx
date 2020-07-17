@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import { Redirect } from 'react-router-dom';
 import { Loading } from '../Utils/Loading';
+import { Link } from 'react-router-dom';
 import Alert from '../Utils/Alert';
 import './index.css';
 
@@ -64,6 +65,12 @@ class Login extends Component {
                     </div>
                     <div className="login-btn" onClick={() => this.auth()}>
                             Login
+                    </div>
+                    <div className="register">
+                        <span>Don't have a user? Register now</span>
+                        <div className="register-btn">
+                                <Link className="link" to='/register'>Register</Link>
+                        </div>
                     </div>
                     {this.state.failed ? <Alert type="error" error={this.state.errMsg} /> : null }
                 </div>

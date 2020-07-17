@@ -1,12 +1,13 @@
 .login-panel {
-    background-color: rgba(173, 207, 187, 0.548);
-    position: fixed;
-    border-radius: 15px;
-    top: 30%;
+    background-color: rgba(255, 255, 255, 0.548);
+    border-radius: 0px;
+    position: absolute;
+    top: 50%;
     left: 50%;
-    padding: 30px;
-    margin-top: -80px;
-    margin-left: -130px;
+    width: 350px;
+    padding: 3vw 5vw 3vw 5vw ;
+    box-shadow: 0 0 10px 0 rgba(141, 141, 141, 0.589);
+    transform: translate(-50%, -50%);
 }
 
 .login-panel .title {
@@ -32,18 +33,21 @@
 }
 
 .login-panel .wrapper input {
+    flex: 1;
     border: 1px solid rgb(182, 182, 182);
     border-radius: 4px;
     padding: 5px;
     text-decoration: none;
 }
 
-.login-panel .wrapper .login-btn:hover {
+.login-panel .wrapper .login-btn:hover,
+.login-panel .wrapper .register-btn:hover {
     opacity: 1;
 }
 
 .login-panel .wrapper div span {
     padding: 5px;
+    min-width: 80px;
 }
 
 .login-btn .login {
@@ -51,17 +55,41 @@
     color: black;
 }
 
-.login-btn {
+.login-btn,
+.register-btn {
     padding: 5px 0 5px 0;
     margin: 10px 0 0 0;
     border-radius: 5px;
     min-width: 250px;
     text-align: center;
-    background-color: rgb(60, 153, 96);
     opacity: 0.85;
     cursor: pointer;
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
+}
+
+.login-btn {
+    background-color: rgb(255, 255, 255);
+}
+
+.register-btn {
+    background-color: rgb(50, 104, 69);
+}
+
+.register {
+    margin-top: 2vw;
+    text-align: center;
+}
+
+.register span {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+}
+
+.register .link {
+    text-decoration: none;
+    color: #fff;
 }
