@@ -56,11 +56,9 @@ class Login extends Component {
                 </div>
                 <div className="wrapper">
                     <div className="username">
-                        <span>Username:</span> 
                         <input type="text" placeholder="Username" onChange={(evt) => this.setState({username: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.auth()}}}></input>
                     </div>
                     <div className="password">
-                        <span>Password:</span> 
                         <input type="password" placeholder="Password" onChange={(evt) => this.setState({password: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.auth()}}}></input>
                     </div>
                     <div className="login-btn" onClick={() => this.auth()}>

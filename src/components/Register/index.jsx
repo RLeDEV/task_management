@@ -23,6 +23,7 @@ class Login extends Component {
         }
         this.clearForm = this.clearForm.bind(this);
         this.installAlert = this.installAlert.bind(this);
+        this.onBackToLogin = this.onBackToLogin.bind(this);
     }
 
     clearForm() {
@@ -49,6 +50,10 @@ class Login extends Component {
                 errMsg: ''
             })
         }, 2000);
+    }
+
+    onBackToLogin() {
+        this.props.history.push('/login');
     }
 
     // Checks if email is already exist for another user
@@ -84,7 +89,6 @@ class Login extends Component {
         }
     }
 
-    // I have to add a check *if username already exist in database*
     onFormSubmit = async () => {
         const email = this.state.email;
         const password = this.state.password;
@@ -93,6 +97,7 @@ class Login extends Component {
         const lastname = this.state.lastname;
         const phone = this.state.phone;
         let errMsg = "";
+        // Form validation
         if(!email.includes("@")) {
             if(errMsg === "") {
                 errMsg = "Email is not correct";
@@ -105,8 +110,7 @@ class Login extends Component {
             if(errMsg === "") {
                 errMsg = "Please fill all the fields";
             }
-        }
-         else if (this.isUserExist(email) === true) { // Checks if username is already in database
+        } else if (this.isUserExist(email)) { // Checks if username is already in database
             if(errMsg === "") {
                 errMsg = "Email is already exist";
             }
@@ -122,7 +126,6 @@ class Login extends Component {
                 this.addNewUser(email,password,firstname,lastname,phone);
                 this.installAlert('success', 'Successfully created new user!');
                 this.clearForm();
-                // Redirect to login page
                 setTimeout(() => {
                     this.props.history.push('/login');
                 }, 1000)
@@ -153,32 +156,29 @@ class Login extends Component {
                 </div>
                 <div className="wrapper">
                     <div className="email inputs">
-                        <span>Email:</span> 
                         <input type="text" placeholder="Email" value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="password inputs">
-                        <span>Password:</span> 
                         <input type="password" placeholder="Password" value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="password2 inputs">
-                        <span>Password:</span> 
                         <input type="password" placeholder="Verify Password" value={this.state.password2} onChange={(evt) => this.setState({password2: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="firstname  inputs">
-                        <span>First Name:</span> 
                         <input type="text" placeholder="First Name" value={this.state.firstname} onChange={(evt) => this.setState({firstname: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="lastname inputs">
-                        <span>Last Name:</span> 
                         <input type="text" placeholder="Last Name" value={this.state.lastname} onChange={(evt) => this.setState({lastname: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="phonenum inputs">
-                        <span>Phone:</span> 
                         <input type="text" placeholder="Phone Number" value={this.state.phone} onChange={(evt) => this.setState({phone: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="register">
                         <div className="register-btn" onClick={this.onFormSubmit}>
                                 Register
+                        </div>
+                        <div className="back-to-login-btn" onClick={this.onBackToLogin}>
+                                Back to login page
                         </div>
                     </div>
                     {this.state.showAlert ? <Alert type={this.state.alertType} error={this.state.errMsg} /> : null }

@@ -3,22 +3,23 @@
     width: 100%;
 }
 
+.succeed,
 .error {
     padding: 10px;
     margin-top: 15px;
     border-radius: 8px;
-    background: rgb(199, 151, 151);
-}
-
-.succeed {
-    padding: 10px;
-    margin-top: 15px;
-    border-radius: 8px;
-    background: rgb(165, 196, 174);
     text-align: center;
 }
 
-.succeed .alert-content {
+.succeed {
+    background: rgb(165, 196, 174);
+}
+
+.error {
+    background: rgb(199, 151, 151);
+}
+
+.alert-content {
     font-size: 15px;
 }
 
