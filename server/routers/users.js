@@ -10,7 +10,6 @@ dotenv.config();
 var router = express.Router();
 
 // Sign-in
-// I still need to re-use the hashedPwd variable --> TODO
 router.post('/login', async (req, res) => {
     const email = req.body.email;
     const pwd = req.body.password;
@@ -86,7 +85,6 @@ router.post('/userexist', async (req, res) => {
     }
 })
 
-// Need to use with hashedPwd --> TODO
 router.post('/register', async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
