@@ -14,9 +14,9 @@ var router = express.Router();
 router.post('/login', async (req, res) => {
     const email = req.body.email;
     const pwd = req.body.password;
-    const hashedPwd = await bcrypt.hash(pwd, 8);
-    const query = `SELECT * FROM users WHERE email = '${email}' AND password = '${pwd}'`
-
+    let dbPwd;
+    const query = `SELECT * FROM users WHERE email = '${email}'`
+    
     try {
         await connection.query(query, (err , results) => {
             if(err) {
@@ -26,13 +26,17 @@ router.post('/login', async (req, res) => {
             const token = jwt.sign({ id: email}, process.env.JWT_TOKEN, {'expiresIn': '2 days' });
             updateToken(token,email)
             if(results.length > 0){
+                // Getting the hashed pwd from DB and comparing between them
+                dbPwd = results[0].password;
+                if(bcrypt.compareSync(pwd,dbPwd)) {
                 // In case it's a valid username & password
-                return res.status(200).json({
-                    token,
-                    user: {
-                        results
-                    }
-                });
+                    return res.status(200).json({
+                        token,
+                        user: {
+                            results
+                        }
+                    });
+                }
             }
             // Incase of invalid username & password
             return res.status(401).json({ msg: 'An error occured while tried to logged in user' });
@@ -85,15 +89,16 @@ router.post('/userexist', async (req, res) => {
 // Need to use with hashedPwd --> TODO
 router.post('/register', async (req, res) => {
     const email = req.body.email;
-    // const hashedPwd = await bcrypt.hash(req.body.password,8);
     const password = req.body.password;
     const firstname = req.body.firstname;
     const lastname = req.body.lastname;
     const phone = req.body.phone;
-    const query = `INSERT INTO users (firstname,lastname,email,phone,password) VALUES ('${firstname}','${lastname}','${email}','${phone}','${password}')`;
+    // Hashing the entered pwd before storing in DB
+    const hashedPwd = await bcrypt.hash(password, 8);
+    const query = `INSERT INTO users (firstname,lastname,email,phone,password) VALUES ('${firstname}','${lastname}','${email}','${phone}','${hashedPwd}')`;
 
     try {
-        await connection.execute(query);
+        connection.execute(query);
         console.log('Successfully added a new user to DB using register page.');
     }
     catch(err) {
