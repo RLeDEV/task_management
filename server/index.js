@@ -6,7 +6,7 @@ const cors = require('cors');
 
 // Routers
 const tasks = require('./routers/tasks');
-const signin = require('./routers/signin');
+const users = require('./routers/users');
 
 dotenv.config();
 
@@ -17,7 +17,7 @@ app.use(cors());
 
 // // Router usage
 app.use('/api/tasks', tasks);
-app.use('/api/users', signin);
+app.use('/api/users', users);
 
 // app.get('/check', function (req, res) {
 //     return res.send('success');
