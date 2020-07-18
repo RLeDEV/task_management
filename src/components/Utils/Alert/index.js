@@ -7,7 +7,7 @@ export default class Alert extends React.Component {
             <div className="alert">
                 <div className={this.props.type === 'warning' ? ' warning' : this.props.type === 'error' ? ' error' : ' succeed'}>
                     <div className="alert-title">
-                        {this.props.type === 'succeed' ? this.props.type.toUpperCase() : this.props.type[0].toUpperCase()}:
+                        {this.props.type.toUpperCase()}:
                     </div>
                     <div className="alert-content">
                         {this.props.error}
