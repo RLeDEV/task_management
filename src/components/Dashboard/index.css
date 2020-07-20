@@ -1,4 +1,104 @@
 .dashboard-pnl {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
     margin: 15px;
     text-align: center;
+}
+
+.dashboard-pnl .left-panel
+{
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.dashboard-pnl .right-panel {
+    height: 100%;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.profile .wrapper,
+.statistic .wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    margin: 5px;
+    min-height: 110px;
+    background: var(--dashboard-backgrounds);
+    transition: all 0.5s;
+}
+
+.profile .wrapper {
+    height: 560px;
+}
+
+.profile .wrapper:hover,
+.statistic .wrapper:hover {
+    box-shadow: 0 0 30px 0 rgba(167, 167, 167, 0.623), inset 0 0 20px 0 rgba(172, 172, 172, 0.514);
+    transition: all 0.5s;
+}
+
+.profile .wrapper .profile-img {
+    text-align: center;
+}
+
+.profile .wrapper .profile-img i {
+    color: rgb(66, 110, 75);
+    font-size: 100px;
+    margin-bottom: 5px;
+}
+
+.profile .wrapper .user-info {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+}
+
+.profile .wrapper .user-info div{
+    margin-top: 3px;
+    font-size: 13px;
+}
+
+.profile .wrapper .user-info div span {
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+/* Statistics */
+.statistic .wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.statistic .wrapper .name {
+    font-size: 4vh;
+    font-weight: 600;
+    padding-bottom: 3px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(52, 119, 75);
+    box-shadow: 0 2px 0px -1px rgba(255, 255, 255, 0.274);
+    min-width: 97%;
+    text-align: left;
+    padding: 10px;
+}
+
+.statistic .wrapper .quantity {
+    font-size: 4vh;
+    transition: all 1s;
+}
+
+.statistic .wrapper:hover > .quantity {
+    font-weight: 600;
+    transition: all 1s;
 }
