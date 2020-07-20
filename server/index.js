@@ -7,6 +7,7 @@ const cors = require('cors');
 // Routers
 const tasks = require('./routers/tasks');
 const users = require('./routers/users');
+const statistics = require('./routers/statistics');
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(cors());
 // Router usage
 app.use('/api/tasks', tasks);
 app.use('/api/users', users);
+app.use('/api/statistics', statistics);
 
 app.listen(process.env.BACKEND_PORT, () => {
     console.log(`Backend server is running on port ${process.env.BACKEND_PORT}`);
