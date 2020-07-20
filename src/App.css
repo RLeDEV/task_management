@@ -1,5 +1,6 @@
 :root {
   --off-white: #fafafa;
+  --dashboard-backgrounds: rgba(183, 206, 193, 0.822);
   background: url('./components/Login/background.jpeg') no-repeat center center fixed;
   height: 100%;
   -webkit-background-size: cover;
