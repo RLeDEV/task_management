@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
             :
             <div className="dashboard-pnl">
                 <div className="left-panel">
-                    <Profile fullName={fullName} phone={phone} email={email} reg_date={regDate} />
+                    <Profile fullName={fullName} phone={phone} email={email} reg_date={regDate} image={this.props.user.user.results[0].userImg}/>
                 </div>
                 <div className="right-panel">
                     <Statistic name="All Tasks" quantity={done+pendings+inprogress} style={this.allStyle}/>

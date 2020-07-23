@@ -17,6 +17,7 @@ class Login extends Component {
             firstname: '',
             lastname: '',
             phone: '',
+            file: '',
             showAlert: false,
             alertType: '',
             errMsg: ''
@@ -24,6 +25,7 @@ class Login extends Component {
         this.clearForm = this.clearForm.bind(this);
         this.installAlert = this.installAlert.bind(this);
         this.onBackToLogin = this.onBackToLogin.bind(this);
+        this.isUserExist = this.isUserExist.bind(this);
     }
 
     clearForm() {
@@ -33,7 +35,8 @@ class Login extends Component {
             password2: '',
             firstname: '',
             lastname: '',
-            phone: ''
+            phone: '',
+            file: ''
         });
     }
 
@@ -72,6 +75,45 @@ class Login extends Component {
         return userExistance;
     }
 
+    getImage = e => {
+        const files = e.target.files;
+        if(files && files.length > 0) {
+            const file = files[0];
+            this.setState({ file });
+        }
+    }
+
+    uploadFile = e => {
+        const { file, email } = this.state;
+        const contentType = file.type;
+        const generatePutUrl = 'http://localhost:3001/api/upload/generate-put-url';
+        const options = {
+            params: {
+                // Key: file.name --> If I want the entered filename as a name in S3
+                Key: email + '.jpg', // This will add to S3 the image as 'entered-email.jpg'
+                ContentType: contentType
+            },
+            headers: {
+                'Content-Type': contentType
+            }
+        }
+        // Generate a URL for the image
+        axios.post(generatePutUrl, options).then(res => {
+            const {
+              data: { putURL }
+            } = res;
+            // Uploading image to S3
+            axios
+              .put(putURL, file, options)
+              .then(res => {
+                  console.log('uploaded')
+              })
+              .catch(err => {
+                console.log('Error while tried to upload image to S3', err);
+              });
+          });
+    }
+
     addNewUser = async (email, password, firstname, lastname,phone) => {
         const body = {
             email,
@@ -89,13 +131,20 @@ class Login extends Component {
         }
     }
 
-    onFormSubmit = async () => {
+    onFormSubmit = async (e) => {
         const email = this.state.email;
         const password = this.state.password;
         const verifiedPass = this.state.password2;
         const firstname = this.state.firstname;
         const lastname = this.state.lastname;
         const phone = this.state.phone;
+        let existStatus = null;
+        // A promise that will return true or false based on existance status
+        await this.isUserExist(email)
+        .then(res => {
+            existStatus = res;
+        })
+        console.log('exist status: ', existStatus)
         let errMsg = "";
         // Form validation
         if(!email.includes("@")) {
@@ -110,7 +159,7 @@ class Login extends Component {
             if(errMsg === "") {
                 errMsg = "Please fill all the fields";
             }
-        } else if (this.isUserExist(email)) { // Checks if username is already in database
+        } else if (existStatus === true) { // Checks if username is already in database
             if(errMsg === "") {
                 errMsg = "Email is already exist";
             }
@@ -123,6 +172,9 @@ class Login extends Component {
         else {
             try {
                 // Register succeed
+                if(this.state.file !== ''){
+                    this.uploadFile();
+                }
                 this.addNewUser(email,password,firstname,lastname,phone);
                 this.installAlert('success', 'Successfully created new user!');
                 this.clearForm();
@@ -173,10 +225,14 @@ class Login extends Component {
                     <div className="phonenum inputs">
                         <input type="text" placeholder="Phone Number" value={this.state.phone} onChange={(evt) => this.setState({phone: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
+                    <div className="image inputs">
+                        <input type="file" accept="image/*" onChange={this.getImage} />
+                    </div>
                     <div className="register">
                         <div className="register-btn" onClick={this.onFormSubmit}>
                                 Register
                         </div>
+                        
                         <div className="back-to-login-btn" onClick={this.onBackToLogin}>
                                 Back to login page
                         </div>

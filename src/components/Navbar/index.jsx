@@ -9,6 +9,9 @@ class Navbar extends Component {
     constructor(props){
         super(props);
         this.logOut = this.logOut.bind(this);
+        this.state = {
+            profileImg: ''
+        }
     }
 
     logOut() {
@@ -17,6 +20,9 @@ class Navbar extends Component {
     }
 
     render() {
+        if(this.props.user.isAuthenticated && this.state.profileImg === '') {
+            this.setState({profileImg: this.props.user.user.results[0].userImg});
+        }
         return (
             <div className="navbar">
                 {/* Checks if the path is login or register, if yes it will not display anything */}
@@ -50,7 +56,11 @@ class Navbar extends Component {
                                 <ul className="nav-manage">
                                     <li className="user-name">
                                         <div>
-                                            <i className="fas fa-user-circle user-menu-icon"></i>
+                                            { this.state.profileImg !== 'Forbidden' && this.state.profileImg !== '' ?
+                                            <img src={this.state.profileImg} alt="profile-img" id="user-menu-img"/>
+                                            :
+                                             <i className="fas fa-user-circle user-menu-icon"></i>
+                                            }
                                             <div className="user-menu-drop-down">
                                                 <div className="tirangle"></div>
                                                 <Link className="link" to='/profile'>
