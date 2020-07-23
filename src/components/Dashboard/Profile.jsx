@@ -11,7 +11,9 @@ export default class Profile extends React.Component {
             <div className="profile">
                     <div className="wrapper">
                     <div className="profile-img">
+                        {this.props.image !== 'Forbidden' ? <img src={this.props.image} alt="profile-image" id="user-menu-img"/>:
                         <i className="fas fa-user-circle user-menu-icon"></i>
+                        }
                     </div>
                     <div className="user-info">
                         <div className="email"><span>Email:</span>{this.props.email}</div>
