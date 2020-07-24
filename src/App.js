@@ -20,21 +20,30 @@ class App extends React.Component {
   }
 
   render() {
+    const ProtectedRoutes = () => {
+      return (
+        <div>
+          <Navbar/>
+          <Switch>
+            <Route exact path='/' render={() => <Redirect to='/dashboard'/>}/>
+            <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
+            <ProtectedRoute exact path='/tasks' component={AllTasks}/>
+            <ProtectedRoute exact path='/create' component={Create}/>
+            <ProtectedRoute exact path='/404' component={ErrPage}/>
+            {/* Protected Route which redirects all paths to login or dashboard based on user's status */}
+            <ProtectedRoute path='*' component={() => <Redirect to='/404'/>}/>
+          </Switch>
+        </div>
+      )
+    }
     return (
       <Provider store={store}>
         <div className="App">
           <Router history={history}>
-            <Navbar />
             <Switch>
-              <Route exact path='/' render={() => <Redirect to='/dashboard'/>}/>
               <Route exact path='/login' component={Login} />
               <Route exact path='/register' component={Register} />
-              <ProtectedRoute exact path='/dashboard' component={Dashboard}/>
-              <ProtectedRoute exact path='/tasks' component={AllTasks}/>
-              <ProtectedRoute exact path='/create' component={Create}/>
-              <Route exact path='/404' component={ErrPage}/>
-              {/* Protected Route which redirects all paths to login or dashboard based on user's status */}
-              <ProtectedRoute path='*' component={() => <Redirect to='/404'/>}/>
+              <Route component={ProtectedRoutes} />
             </Switch>
           </Router>
         </div>
