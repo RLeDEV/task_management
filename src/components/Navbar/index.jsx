@@ -14,21 +14,28 @@ class Navbar extends Component {
         }
     }
 
+    componentWillMount() {
+
+    }
+
+    componentDidUpdate(){
+        this.updateImg();
+    }
+
+    updateImg() {
+        if(this.props.user.isAuthenticated && this.state.profileImg === '') {
+            this.setState({profileImg: this.props.user.user.results[0].userImg});
+        }
+    }
+
     logOut() {
         // Loging the user out using redux action & navigating to login page
         this.props.logoutUser();
     }
 
     render() {
-        if(this.props.user.isAuthenticated && this.state.profileImg === '') {
-            this.setState({profileImg: this.props.user.user.results[0].userImg});
-        }
         return (
             <div className="navbar">
-                {/* Checks if the path is login or register, if yes it will not display anything */}
-                {this.props.location.pathname==='/login' || this.props.location.pathname==='/register' ? false :
-                
-                // Navbar displaytion
                 <React.Fragment>
                     <div className="wrapper">
                         <div className="top-navbar">
@@ -55,9 +62,15 @@ class Navbar extends Component {
                                 </ul>
                                 <ul className="nav-manage">
                                     <li className="user-name">
-                                        <div>
+                                        <div className="profile">
                                             { this.state.profileImg !== 'Forbidden' && this.state.profileImg !== '' ?
-                                            <img src={this.state.profileImg} alt="profile-img" id="user-menu-img"/>
+                                            <div id="user-menu-img" style={{  
+                                                // eslint-disable-next-line
+                                                backgroundImage: "url(" + `${this.state.profileImg}` + ")",
+                                                backgroundPosition: 'center',
+                                                backgroundSize: 'cover',
+                                                backgroundRepeat: 'no-repeat'
+                                              }}/>
                                             :
                                              <i className="fas fa-user-circle user-menu-icon"></i>
                                             }
@@ -77,7 +90,7 @@ class Navbar extends Component {
                         </div>
                     </div>
                 </React.Fragment>
-                }
+                
             </div>
         )
     }

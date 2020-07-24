@@ -87,17 +87,16 @@
 .wrapper .top-navbar .top-menu #user-menu-img {
     padding: 5px;
     color: white;
-    display: inline;
+    /* display: inline; */
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
 }
 
 .wrapper .top-navbar .top-menu .user-menu-icon,
-.wrapper .top-navbar .top-menu #user-menu-img   {
-    border-radius: 50%;
+.wrapper .top-navbar .top-menu #user-menu-img {
     transition: all 0.5s;
-    margin-right: 10px;
+    margin: 5px;
 }
 
 .wrapper .top-navbar .top-menu .user-name{
@@ -115,7 +114,19 @@
     border-radius: 50%;
 }
 
-.wrapper .top-navbar .top-menu .user-name:hover .user-menu-icon,
+.wrapper .top-navbar .top-menu .user-name .profile {
+    padding: 2px;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.wrapper .top-navbar .top-menu .user-name:hover .profile {
+    background: rgba(27, 71, 35, 0.349);
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+/* .wrapper .top-navbar .top-menu .user-name:hover .user-menu-icon, */
 .wrapper .top-navbar .top-menu .user-name:hover #user-menu-img {
     background: rgba(27, 71, 35, 0.349);
     cursor: pointer;

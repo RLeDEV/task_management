@@ -50,6 +50,7 @@
 }
 
 .profile .wrapper .profile-img {
+    flex: 3;
     text-align: center;
 }
 
@@ -68,6 +69,7 @@
 }
 
 .profile .wrapper .user-info {
+    flex: 2;
     display: flex;
     text-align: left;
     flex-direction: column;

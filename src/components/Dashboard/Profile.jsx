@@ -7,12 +7,21 @@ export default class Profile extends React.Component {
         this.reg_date = this.props.reg_date.substring(0,10);
     }
     render() {
+        var profileImgStyle={  
+            // eslint-disable-next-line
+            backgroundImage: "url(" + `${this.props.image}` + ")",
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'
+          }
         return (
             <div className="profile">
                     <div className="wrapper">
                     <div className="profile-img">
-                        {this.props.image !== 'Forbidden' ? <img src={this.props.image} alt="profile-image" id="user-menu-img"/>:
-                        <i className="fas fa-user-circle user-menu-icon"></i>
+                        {this.props.image !== 'Forbidden' ? 
+                        <div id="user-menu-img" style={profileImgStyle}/>
+                        :
+                        <div><i className="fas fa-user-circle user-menu-icon"></i></div>
                         }
                     </div>
                     <div className="user-info">
