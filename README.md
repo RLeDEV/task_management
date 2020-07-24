@@ -10,7 +10,28 @@ A project that helps the end-user to manage his tasks and manage their status.
 
 ## Installation Instructions
 Download the repository and use `npm install` to install all the related modules.<br/>
-Please fill the .ENV file with your database & AWS S3 configuration 
+Please make the .ENV file with your database & AWS S3 configuration and locate it in the main directory<br/>
+- An exmaple of .ENV file would be:
+```
+# Express PORT
+BACKEND_PORT = YOUR BACKEND PORT
+
+# Database Configuration
+DB_USERNAME = "username"
+DB_PASSWORD = "pwd"
+DB_HOST = "host"
+DB_TABLE = "dbtable"
+DB_PORT = 3306
+
+# JWT_TOKEN
+JWT_TOKEN = 'ENTER_YOUR_JWT_SEC'
+
+# AWS Configuration
+S3_KEY= 'KEY'
+S3_SECRET= 'SECRET_KEY'
+BUCKET_NAME = 'BUCKET_NAME'
+BUCKET_REGION = 'REGION'
+```
 
 ## How does it work
 There are 3 main systems in the project:
