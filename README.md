@@ -10,6 +10,7 @@ A project that helps the end-user to manage his tasks and manage their status.
 
 ## Installation Instructions
 Download the repository and use `npm install` to install all the related modules.
+Please fill the .ENV file with your database & AWS S3 configuration 
 
 ## How does it work
 There are 3 main systems in the project:
