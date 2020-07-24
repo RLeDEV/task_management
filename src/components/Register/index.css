@@ -43,6 +43,23 @@
     text-decoration: none;
 }
 
+.register-panel .wrapper input[type="file"] {
+    display: none;
+    width: 100%;
+} 
+
+.register-panel .wrapper .inputs .custom-file-upload {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(45, 107, 78);
+    outline: none;
+    font-size: 14px;
+    color: rgb(58, 58, 58);
+    padding: 5px;
+    text-decoration: none;
+}
+
 .register-panel .wrapper div span {
     padding: 5px;
     min-width: 80px;

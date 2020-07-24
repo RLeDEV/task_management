@@ -226,7 +226,11 @@ class Login extends Component {
                         <input type="text" placeholder="Phone Number" value={this.state.phone} onChange={(evt) => this.setState({phone: evt.target.value})} required onKeyDown={(e) => {if(e.key === 'Enter'){ this.onFormSubmit()}}}></input>
                     </div>
                     <div className="image inputs">
-                        <input type="file" accept="image/*" onChange={this.getImage} />
+                    <label htmlFor="file-upload" className="custom-file-upload">
+                        <i className="fa fa-cloud-upload"></i> Profile Image{this.state.file.name ? ': ' + this.state.file.name : ''}
+                    </label>
+                    <input id="file-upload" type="file" accept="image/*" onChange={this.getImage} required/>
+                        {/* <input type="file" accept="image/*" onChange={this.getImage} /> */}
                     </div>
                     <div className="register">
                         <div className="register-btn" onClick={this.onFormSubmit}>
